@@ -1,0 +1,2 @@
+Weighing three leaves at once to reduce weighing error.  Each triplet from a single whorl.  Weighing and scanning each rep of three separately.  Scans are #1,2,3 from top to bottom of scanned image. 
+

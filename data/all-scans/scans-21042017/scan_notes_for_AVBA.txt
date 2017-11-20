@@ -1,0 +1,2 @@
+For Avena barbata we taped leaves onto the scanner bed to prevent them from rolling up.  Instead of scanning total leaf area we placed all leaves (after scanning the initial three) into an envelope separate from the total aboveground plant biomass.  We can use dry leaf weight and SLA to calculate total leaf area for each plant.  This indirect measure will be better than scanning all the leaves directly which tend to roll up a lot. 
+

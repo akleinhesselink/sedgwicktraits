@@ -1,0 +1,81 @@
+sequence,date_collected,date_measured,operator,species,individual,leaf,reading,final_diff,percent_disc,notes
+1,4/11/2017,4/13/2017,Gaurav,LACA,1,1,608,,25,
+2,4/11/2017,4/13/2017,Gaurav,LACA,1,2,621,,25,
+3,4/11/2017,4/13/2017,Gaurav,LACA,2,1,556,,25,
+4,4/11/2017,4/13/2017,Gaurav,LACA,2,2,571,,25,
+5,4/11/2017,4/13/2017,Gaurav,LACA,3,1,361,,25,
+6,4/11/2017,4/13/2017,Gaurav,LACA,4,1,439,15,25,
+7,4/11/2017,4/13/2017,Gaurav,LACA,4,2,450,,25,
+8,4/11/2017,4/13/2017,Gaurav,LACA,4,3,439,,25,
+9,4/19/2017,4/21/2017,Gaurav and Ian,MICA,1,1,295,,30,"MICA leaves densely covered with hairs, like Lamb's Ears (Stachys byzantina)"
+10,4/19/2017,4/21/2017,Gaurav and Ian,MICA,3,1,394,,30,
+11,4/19/2017,4/21/2017,Ian,MICA,2,1,452,,30,"Took a long time to get into the osmometer, but value seems ok (not very high)"
+12,4/19/2017,4/21/2017,Gaurav and Ian,MICA,1,2,267,,30,Some MICA shrivel up in the osmomter 
+13,4/19/2017,4/21/2017,Gaurav and Ian,MICA,3,2,356,,30,
+14,4/19/2017,4/21/2017,Gaurav and Ian,MICA,4,1,481,,30,"Started high at 1145, took 10 to get to final value, but was within 4 of the last one "
+15,4/19/2017,4/21/2017,Gaurav and Ian,MICA,2,2,371,,30,
+16,4/19/2017,4/21/2017,Gaurav and Ian,AGHE,1,1,364,,100,"No midrib, whole puch as leaves are large "
+17,4/19/2017,4/21/2017,Gaurav and Ian,AGHE,1,2,369,,100,"No midrib, whole puch as leaves are large "
+18,4/19/2017,4/21/2017,Ian,MICA,4,2,479,,30,
+19,4/19/2017,4/21/2017,Ian,AGHE,2,1,341,,90,"Punched through midrib, but vein is small"
+20,4/19/2017,4/21/2017,Ian,AGHE,2,2,416,9,30,Took part of a thin projection off the midrib 
+21,4/19/2017,4/21/2017,Ian,AGHE,3,2,408,,20,Took part of a thin projection off the midrib 
+22,4/19/2017,4/21/2017,Ian,AGHE,4,1,269,,40,Took part of a thin projection off the midrib 
+23,4/19/2017,4/21/2017,Ian,AGHE,3,1,332,,30,Took part of a thin projection off the midrib 
+24,4/19/2017,4/21/2017,Ian,AGHE,4,2,304,,60,Took part of a thin projection off the midrib 
+25,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,3,1,641,,100,
+26,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,3,2,673,,100,Took a little long to get into osmomter 
+27,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,2,1,560,,100,"After this sample a leaf disc got stuck somewhere outside the chamber, might have a piece in the chamber? "
+28,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,4,2,610,,97,"[3 May 2017, piece of leaf was stuck inside the outer silver part]"
+29,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,1,1,623,,100,[Camilla said this was fine as the inner part is where this would have affected things]
+30,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,2,2,555,,100,
+31,4/27/2017,4/28/2017,Gaurav and Ian,EUPE,1,2,613,,100,
+32,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,4,1,363,,100,
+33,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,3,1,390,,100,
+34,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,3,2,412,,100,
+35,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,4,2,381,,100,Punch included midrib 
+36,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,2,1,374,,100,Disc may have been a little dry going into the osmometer 
+37,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,1,2,387,,100,
+38,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,1,1,400,,70,
+39,4/27/2017,4/28/2017,Gaurav and Ian,ANAR,2,2,409,,100,
+40,4/27/2017,4/28/2017,Gaurav and Ian,LOWR,3,1,522,,100,"Leaves thickened and a little succulent, covered in thin layer of light coloered hairs "
+41,4/27/2017,4/28/2017,Gaurav,LOWR,2,1,520,7,60,
+42,4/27/2017,4/28/2017,Gaurav,LOWR,2,2,577,10,60,
+43,4/27/2017,4/28/2017,Gaurav,LOWR,3,2,493,,100,
+44,4/27/2017,4/27/2017,Gaurav,EUPE,4,2,679,,100,started at 1311
+45,4/27/2017,5/1/2017,Ian,LOWR,4,1,433,,80,"Took a while to get into osmometer, used entire leaf "
+46,4/27/2017,5/1/2017,Ian,LOWR,1,1,640,6,60,"Ran May 1st 2017 samples on a monday after collecting wednesday before, plants looked good"
+47,4/27/2017,5/1/2017,Ian,LOWR,4,2,518,,60,
+48,4/27/2017,5/1/2017,Ian,LOWR,1,2,648,,90,"[3 May 2017: Values 27 - 48 were taken with a small piece of leaf stuck in the chamber, this is ok though, see above in notes for sequence #28]"
+49,5/3/2017,5/4/2017,Gaurav and Ian,MEPO,1,1,1062,9,100,MEPO ind 1 looks wilty in bag- may want to throw out these numbers and recollect a plant
+50,5/3/2017,5/4/2017,Gaurav,MEPO,1,2,1206,,100,MEPO ind 1 looks wilty in bag- may want to throw out these numbers and recollect a plant
+51,5/3/2017,5/4/2017,Gaurav,MEPO,2,1,1442,,100,MEPO ind 2 looks wilty in bag- may want to throw out these numbers and recollect a plant
+52,5/3/2017,5/4/2017,Gaurav,MEPO,3,1,605,,100,
+53,5/3/2017,5/4/2017,Gaurav,MEPO,2,2,1423,,100,MEPO ind 2 looks wilty in bag- may want to throw out these numbers and recollect a plant
+54,5/3/2017,5/4/2017,Gaurav,MEPO,4,1,599,,100,
+55,5/3/2017,5/4/2017,Gaurav,MEPO,4,2,613,,100,
+56,5/3/2017,5/4/2017,Gaurav,MEPO,3,2,590,,100,
+57,5/3/2017,5/4/2017,Gaurav,SACO,1,1,290,,100,leaf disc has some fairly large veins in it
+58,5/3/2017,5/4/2017,Gaurav,SACO,3,1,288,,100,leaf disc has some fairly large veins in it
+59,5/3/2017,5/4/2017,Gaurav,SACO,2,1,248,,100,leaf disc has some fairly large veins in it
+60,5/3/2017,5/4/2017,Gaurav,SACO,4,1,335,,80,discs 60-71 were run in the afternoon but a caliberation was not performed (caliberated at 9.30 AM; again at 4.45 PM). 
+61,5/3/2017,5/4/2017,Gaurav,SACO,4,2,268,,80,"At 4.45pm, caliberations were 301, 996, 120"
+62,5/3/2017,5/4/2017,Gaurav and Ian,SACO,3,2,275,,100,
+62,5/3/2017,5/4/2017,Gaurav and Ian,SACO,1,2,367,,100,
+63,5/3/2017,5/4/2017,Gaurav and Ian,SACO,2,2,236,,100,
+64,5/3/2017,5/4/2017,Gaurav,PLER,1,1,547,,100,midrib included in punch
+65,5/3/2017,5/4/2017,Gaurav,PLER,1,2,516,,100,
+66,5/3/2017,5/4/2017,Gaurav,PLER,3,1,577,,100,disc seemed a little wet coming out of liquid N
+67,5/3/2017,5/4/2017,Gaurav,PLER,2,1,502,,100,
+68,5/3/2017,5/4/2017,Gaurav,PLER,3,2,454,,100,
+69,5/3/2017,5/4/2017,Gaurav,PLER,2,2,471,,100,
+70,5/3/2017,5/4/2017,Gaurav,PLER,4,1,496,,100,
+71,5/3/2017,5/4/2017,Gaurav,PLER,4,2,495,,100,
+72,5/3/2017,5/5/2017,Ian,AMME,1,1,314,,100,"Punch avoided midrib, large indiv with roots not in any soil "
+73,5/3/2017,5/5/2017,Ian,AMME,2,1,351,,100,Punch included midrib
+74,5/3/2017,5/5/2017,Ian,AMME,2,2,323,,100,Punch included midrib
+75,5/3/2017,5/5/2017,Ian,AMME,1,2,292,,100,Punch included very small portion of midrib 
+76,5/3/2017,5/5/2017,Ian,AMME,3,1,270,,100,
+77,5/3/2017,5/5/2017,Ian,AMME,3,2,261,,100,Punch avoided midrib
+78,5/3/2017,5/5/2017,Ian,AMME,4,1,215,,100,Punch avoided midrib
+79,5/3/2017,5/5/2017,Ian,AMME,4,2,259,,100,Punch avoided midrib

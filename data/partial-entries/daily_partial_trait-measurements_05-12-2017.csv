@@ -1,0 +1,121 @@
+plot,species,plant_number,leaf_number,leaf_length_cm,leaf_width_cm,wet_mass_g,petiole_mass_g,leaf_area_cm2,dry_mass_g,,date,notes,H,L,W
+non_plot,Chlorogallum pomeridianum,1,1,28,1.2,1.05035,,,,,12-May-2017,attached to root,28,44,27
+non_plot,Chlorogallum pomeridianum,1,2,20,1.6,1.02384,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,1,3,23,1.5,1.07704,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,2,1,31,1.5,1.2959,,,,,12-May-2017,attached to root,40,30,9
+non_plot,Chlorogallum pomeridianum,2,2,16,1.5,0.92006,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,2,3,16,1.5,1.01925,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,3,1,20,1.3,0.73267,,,,,12-May-2017,,25,22,10
+non_plot,Chlorogallum pomeridianum,3,2,26,1.4,0.82543,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,3,3,27,1.1,0.57234,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,4,1,25,1.6,0.91299,,,,,12-May-2017,,24,24,27
+non_plot,Chlorogallum pomeridianum,4,2,31,1.7,1.3664,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,4,3,29,1.9,1.44417,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,5,1,28,1.8,0.9407,,,,,12-May-2017,,29,8,30
+non_plot,Chlorogallum pomeridianum,5,2,26,1.1,0.78049,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,5,3,28,1.3,0.91535,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,6,1,24,1.4,0.65335,,,,,12-May-2017,,24,50,73
+non_plot,Chlorogallum pomeridianum,6,2,35,1.3,1.02388,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,6,3,34,1.6,1.36291,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,7,1,32,1.2,0.85999,,,,,12-May-2017,,31,23,16
+non_plot,Chlorogallum pomeridianum,7,2,33,1.3,1.15604,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,7,3,35,1,0.74729,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,8,1,36,1.5,1.58707,,,,,12-May-2017,attached to root with flower,62,40,30
+non_plot,Chlorogallum pomeridianum,8,2,33,1.6,1.4535,,,,,12-May-2017,,,,
+non_plot,Chlorogallum pomeridianum,8,3,36,1.5,1.68858,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,1,1,2,1.4,0.0776,,,,,12-May-2017,Calculate leaf area from total leaf weight and SLA,5,18,16
+non_plot,Calystegia collina,1,2,2.1,2.4,0.07429,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,1,3,2.2,2.2,0.08536,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,2,1,2.5,2.2,0.09808,,,,,12-May-2017,Calculate leaf area from total leaf weight and SLA,7,20,19
+non_plot,Calystegia collina,2,2,2.4,2.5,0.07869,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,2,3,2.8,1.8,0.06099,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,3,1,1.2,2,0.05446,,,,,12-May-2017,Calculate leaf area from total leaf weight and SLA,6,10,14
+non_plot,Calystegia collina,3,2,2,1.7,0.05184,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,3,3,1.6,1.7,0.03719,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,4,1,1.7,1.5,0.03582,,,,,12-May-2017,Calculate leaf area from total leaf weight and SLA,5,12,12
+non_plot,Calystegia collina,4,2,2,1.8,0.04603,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,4,3,1.6,1.7,0.03643,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,5,1,2,1.6,0.05079,,,,,12-May-2017,scanned all leaves on this plant,5,12,12
+non_plot,Calystegia collina,5,2,2,1.8,0.04465,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,5,3,2.2,1.8,0.05078,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,6,1,2.2,2,0.05919,,,,,12-May-2017,scanned all leaves on this plant,9,16,13
+non_plot,Calystegia collina,6,2,2,1.7,0.04113,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,6,3,2,2.1,0.05232,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,7,1,2.4,1.7,0.06156,,,,,12-May-2017,scanned all leaves on this plant,11,19,8
+non_plot,Calystegia collina,7,2,2,1.7,0.04245,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,7,3,1.7,2.2,0.05027,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,8,1,1.8,1.2,0.03161,,,,,12-May-2017,scanned all leaves on this plant,6,11,11
+non_plot,Calystegia collina,8,2,1.5,1.6,0.03361,,,,,12-May-2017,,,,
+non_plot,Calystegia collina,8,3,2,1.4,0.04032,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,1,1,3,2,0.09007,,,,,12-May-2017,,2,9,9
+non_plot,Croton setigerus,1,2,3.5,2,0.0937,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,1,3,3,1.5,0.07102,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,2,1,2.5,1.5,0.05696,,,,,12-May-2017,,2,5,5
+non_plot,Croton setigerus,2,2,2.1,1.8,0.07065,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,2,3,2,1.5,0.04988,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,3,1,4,2.8,0.17684,,,,,12-May-2017,,5,14,12
+non_plot,Croton setigerus,3,2,4.3,3,0.20997,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,3,3,2,1.5,0.04415,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,4,1,3.8,2.5,0.12905,,,,,12-May-2017,,5,12,11
+non_plot,Croton setigerus,4,2,3.5,2.2,0.12855,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,4,3,3,2.5,0.1094,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,5,1,2.5,1.8,0.05911,,,,,12-May-2017,,2,6,5
+non_plot,Croton setigerus,5,2,1.5,1,0.02438,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,5,3,2.2,1.5,0.03801,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,6,1,2.5,2,0.06928,,,,,12-May-2017,,2,8,7
+non_plot,Croton setigerus,6,2,2,1.6,0.04589,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,6,3,2.8,2,0.0829,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,7,1,2.5,1.6,0.05761,,,,,12-May-2017,,6,6,6
+non_plot,Croton setigerus,7,2,3,1.5,0.04106,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,7,3,1.5,1,0.02783,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,8,1,2.2,1.5,0.03795,,,,,12-May-2017,,3,7,7
+non_plot,Croton setigerus,8,2,2.5,1.7,0.05405,,,,,12-May-2017,,,,
+non_plot,Croton setigerus,8,3,2.5,1.4,0.04713,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,1,1,7,1.9,0.10371,,,,,12-May-2017,,26,5,7
+non_plot,Lagophylla ramosissima,1,2,7.5,1.2,0.0992,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,1,3,5.5,0.5,0.07163,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,2,1,6,0.7,0.07066,,,,,12-May-2017,,25,7,7
+non_plot,Lagophylla ramosissima,2,2,5.5,0.5,0.06699,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,2,3,7,1,0.08975,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,3,1,5.5,0.6,0.07832,,,,,12-May-2017,,25,6,5
+non_plot,Lagophylla ramosissima,3,2,5,0.6,0.06162,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,3,3,4.7,0.6,0.06064,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,4,1,4,0.4,0.03187,,,,,12-May-2017,,21,4,3
+non_plot,Lagophylla ramosissima,4,2,4,0.3,0.03108,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,4,3,2.5,0.2,0.0229,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,5,1,7,0.7,0.11369,,,,,12-May-2017,,22,7,5
+non_plot,Lagophylla ramosissima,5,2,8,1,0.13094,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,5,3,6,0.7,0.08532,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,6,1,7,1,0.12693,,,,,12-May-2017,,33,8,7
+non_plot,Lagophylla ramosissima,6,2,6,0.9,0.10107,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,6,3,5.2,0.7,0.07688,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,7,1,7.5,0.7,0.09877,,,,,12-May-2017,,27,4,5
+non_plot,Lagophylla ramosissima,7,2,5.5,0.5,0.07049,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,7,3,4.5,0.5,0.04923,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,8,1,5,0.6,0.04738,,,,,12-May-2017,,20,4,4
+non_plot,Lagophylla ramosissima,8,2,4.5,0.6,0.04732,,,,,12-May-2017,,,,
+non_plot,Lagophylla ramosissima,8,3,3.5,0.5,0.03223,,,,,12-May-2017,,,,
+non_plot,SIGA,1,1,3,0.7,0.05606,,,,,12-May-2017,,25,10,5
+non_plot,SIGA,1,2,2.9,0.7,0.04764,,,,,12-May-2017,,,,
+non_plot,SIGA,1,3,2.4,0.5,0.03522,,,,,12-May-2017,,,,
+non_plot,SIGA,5,1,2.5,0.8,0.04564,,,,,12-May-2017,,37,13,9
+non_plot,SIGA,5,2,3.1,0.9,0.06671,,,,,12-May-2017,,,,
+non_plot,SIGA,5,3,2,0.4,0.01782,,,,,12-May-2017,,,,
+non_plot,SIGA,2,1,2.5,0.6,0.04152,,,,,12-May-2017,,38,5,16
+non_plot,SIGA,2,2,3.5,0.7,0.06746,,,,,12-May-2017,,,,
+non_plot,SIGA,2,3,2.4,0.4,0.02138,,,,,12-May-2017,,,,
+non_plot,SIGA,3,1,3,1,0.0758,,,,,12-May-2017,,42,28,36
+non_plot,SIGA,3,2,2,0.6,0.02946,,,,,12-May-2017,,,,
+non_plot,SIGA,3,3,3.2,0.7,0.09616,,,,,12-May-2017,,,,
+non_plot,SIGA,4,1,2.6,0.6,0.04601,,,,,12-May-2017,,41,25,27
+non_plot,SIGA,4,2,2.1,0.6,0.03321,,,,,12-May-2017,,,,
+non_plot,SIGA,4,3,2.9,0.7,0.05117,,,,,12-May-2017,,,,
+non_plot,SIGA,6,1,3,0.9,0.06348,,,,,12-May-2017,,43,20,10
+non_plot,SIGA,6,2,2,0.5,0.02483,,,,,12-May-2017,,,,
+non_plot,SIGA,6,3,2.2,0.5,0.02483,,,,,12-May-2017,,,,
+non_plot,SIGA,7,1,3,0.9,0.06826,,,,,12-May-2017,,38,45,42
+non_plot,SIGA,7,2,2.4,0.7,0.04494,,,,,12-May-2017,,,,
+non_plot,SIGA,7,3,2.2,0.7,0.04642,,,,,12-May-2017,,,,
+non_plot,SIGA,8,1,2.2,0.5,0.02663,,,,,12-May-2017,,19,3,3
+non_plot,SIGA,8,2,2,0.4,0.02298,,,,,12-May-2017,,,,
+non_plot,SIGA,8,3,1.7,0.2,0.0133,,,,,12-May-2017,,,,

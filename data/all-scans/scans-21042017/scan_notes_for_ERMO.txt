@@ -1,0 +1,2 @@
+We scanned new plants for Erodium moschatum to correct for petiole and rachis.  We scanned detached leaflets from each leaf and placed the petiole above the leaflets.  This will allow for the calculation of a leaf area to petiole area ratio that can be used to correct for the previously collected total leaf area measurements. Petioles from all the scanned leaves were preserved so that dry weight of leaflet to petiole can be calculated. Petioles were not included in leaflet wet weight. 
+

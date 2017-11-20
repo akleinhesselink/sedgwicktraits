@@ -1,0 +1,6 @@
+Re-did some leaves for Lupinus bicolor to account for the petiole.  Leaflets were detached and scanned separately from the petiole.  The petiole was scanned above the leaflets.  This will allow for the calculation of a petiole area to leaflet area ratio.  We can use this ratio to correct for the previous scans of total leaf area--which included scans of the petioles. 
+
+Leaf wet weight does not include the petiole.  
+
+The petioles from all leaf scans were preserved so that a dry petiole weight to leaflet dry weight could be calculated. 
+

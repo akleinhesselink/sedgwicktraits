@@ -1,0 +1,5 @@
+Scan three leaves per scan (#1,2,3) from top to bottom of the scan image. Measure length of plant and count leaves per plant and put leaves and biomass in separate envelopes. 
+
+ 
+
+

@@ -1,0 +1,4 @@
+Scanned leaves are numbered from top to bottom. 
+
+Scans from P1 to P4 had some weight error so for scans from P5 to P8 we did a pooled scan of many leaflets at once.  The number of leaflets is recorded on the envelope and on the datasheet in the notes. 
+

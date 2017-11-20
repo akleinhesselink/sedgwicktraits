@@ -1,0 +1,93 @@
+plot,species,plant_number,leaf_number,leaf_length_cm,leaf_width_cm,wet_mass_g,petiole_mass_g,leaf_area_cm2,dry_mass_g,date,notes,H,L,W
+non_plot,Carduus pycnocephala,1,1,11,6,0.4881,,,,,,46,16,14
+non_plot,Carduus pycnocephala,1,2,6,5,0.29219,,,,,,,,
+non_plot,Carduus pycnocephala,1,3,8,6,0.39499,,,,,,,,
+non_plot,Carduus pycnocephala,2,1,10,7,0.83688,,,,,,67,20,22
+non_plot,Carduus pycnocephala,2,2,9,6,0.50083,,,,,,,,
+non_plot,Carduus pycnocephala,2,3,7,5,0.34855,,,,,,,,
+non_plot,Carduus pycnocephala,3,1,12,7,1.01212,,,,,,87,30,19
+non_plot,Carduus pycnocephala,3,2,13,7,1.15932,,,,,,,,
+non_plot,Carduus pycnocephala,3,3,6,4,0.2732,,,,,,,,
+non_plot,Carduus pycnocephala,4,1,11,7,0.67873,,,,,,61,24,14
+non_plot,Carduus pycnocephala,4,2,10,6,0.51458,,,,,,,,
+non_plot,Carduus pycnocephala,4,3,9,6,0.43677,,,,,,,,
+non_plot,Carduus pycnocephala,5,1,11,6,0.667,,,,,,61,23,12
+non_plot,Carduus pycnocephala,5,2,10,6,0.51901,,,,,,,,
+non_plot,Carduus pycnocephala,5,3,7,4,0.26531,,,,,,,,
+non_plot,Carduus pycnocephala,5.1,1,12,7,1.1741,,,,,,58,19,20
+non_plot,Carduus pycnocephala,5.1,2,12,6,0.7918,,,,,,,,
+non_plot,Carduus pycnocephala,6,1,11,7,0.72318,,,,,,65,24,18
+non_plot,Carduus pycnocephala,6,2,9,6,0.47839,,,,,,,,
+non_plot,Carduus pycnocephala,6,3,6,4,0.21849,,,,,,,,
+non_plot,Carduus pycnocephala,7,1,11,6,0.77951,,,,,,56,20,18
+non_plot,Carduus pycnocephala,7,2,12,7,0.9483,,,,,,,,
+non_plot,Carduus pycnocephala,7,3,10,5,0.63474,,,,,,,,
+non_plot,Carduus pycnocephala,8,1,14,8,1.37773,,,,,,94,20,23
+non_plot,Carduus pycnocephala,8,2,12,8,1.17208,,,,,,,,
+non_plot,Carduus pycnocephala,8,3,10,6,0.72319,,,,,,,,
+comp,VUMA,2,1,5.5,0.2,0.01889,,,,,,41,5,5
+comp,VUMA,2,2,4.4,0.2,0.00838,,,,,,,,
+comp,VUMA,2,3,6,0.2,0.01656,,,,,,,,
+comp,VUMA,3,1,6.5,0.2,0.0122,,,,,,41,7,5
+comp,VUMA,3,2,5.5,0.2,0.01203,,,,,,,,
+comp,VUMA,3,3,6,0.2,0.01633,,,,,,,,
+comp,VUMA,4,1,5,0.2,0.01126,,,,,,31,7,5
+comp,VUMA,4,2,5,0.2,0.0112,,,,,,,,
+comp,VUMA,4,3,4.2,0.2,0.00714,,,,,,,,
+comp,VUMA,5,1,6,0.2,0.01469,,,,,,40,7,5
+comp,VUMA,5,2,6.5,0.2,0.01716,,,,,,,,
+comp,VUMA,5,3,2.5,0.2,0.00411,,,,,,,,
+comp,LOPU,3,1,2,2.5,0.02279,,,,,,15,20,14
+comp,LOPU,3,2,3,2.5,0.03556,,,,,,,,
+comp,LOPU,3,3,3,2.5,0.03994,,,,,,,,
+comp,LOPU,4,1,2.5,2.5,0.05253,,,,,,15,14,10
+comp,LOPU,4,2,2,3,0.06307,,,,,,,,
+comp,LOPU,4,3,3,3,0.06658,,,,,,,,
+comp,LOPU,5,1,3,2.5,0.06113,,,,,,16,27,21
+comp,LOPU,5,2,3,2.5,0.06455,,,,,,,,
+comp,LOPU,5,3,3,2.5,0.04244,,,,,,,,
+comp,CLBO,4,1,1.5,0.1,0.00513,,,,,,15,2,1
+comp,CLBO,4,2,1.5,0.1,0.00499,,,,,,,,
+comp,CLBO,4,3,1.5,0.1,0.00467,,,,,,,,
+comp,CLBO,5,1,2.1,0.2,0.00672,,,,,,20,2,2
+comp,CLBO,5,2,2.2,0.2,0.00702,,,,,,,,
+comp,CLBO,5,3,2.1,0.2,0.00639,,,,,,,,
+comp,CEME,1,1,4,0.7,0.05913,,,,,,18,8,5
+comp,CEME,1,2,5,1,0.07316,,,,,,,,
+comp,CEME,1,3,5,1.2,0.06303,,,,,,,,
+comp,CEME,2,1,8,2,0.3022,,,,,,57,17,5
+comp,CEME,2,2,6.5,1.5,0.21943,,,,,,,,
+comp,CEME,2,3,5.4,1.6,0.12705,,,,,,,,
+comp,CEME,3,1,6.5,1.4,0.16291,,,,,,31,13,16
+comp,CEME,3,2,6,1.7,0.14694,,,,,,,,
+comp,CEME,3,3,4.5,1.2,0.07903,,,,,,,,
+comp,CEME,4,1,5.5,0.7,0.08328,,,,,,19,9,9
+comp,CEME,4,2,5.5,0.9,0.07964,,,,,,,,
+comp,CEME,4,3,6,1,0.0836,,,,,,,,
+comp,CEME,5,1,6,1.1,0.11955,,,,,,27,9,9
+comp,CEME,5,2,6.3,1.2,0.11208,,,,,,,,
+comp,CEME,5,3,5.2,1.2,0.09821,,,,,,,,
+non_plot,NAPU,1,1,31,0.3,0.1745,,,,,,81,19,16
+non_plot,NAPU,1,2,25,0.4,0.11877,,,,,,,,
+non_plot,NAPU,1,3,14,0.3,0.05605,,,,,,,,
+non_plot,NAPU,2,1,23,0.5,0.15977,,,,,,87,21,15
+non_plot,NAPU,2,2,11,0.5,0.09127,,,,,,,,
+non_plot,NAPU,2,3,19,0.5,0.09846,,,,,,,,
+non_plot,NAPU,4,1,17,0.7,0.08003,,,,,,71,26,17
+non_plot,NAPU,4,2,11,0.4,0.08344,,,,,,,,
+non_plot,NAPU,4,3,14,0.4,0.06128,,,,,,,,
+non_plot,NAPU,5,1,13,0.5,0.05834,,,,,,49,16,11
+non_plot,NAPU,5,2,23,0.5,0.13448,,,,,,,,
+non_plot,NAPU,5,3,18,0.6,0.13649,,,,,,,,
+non_plot,NAPU,3,1,19,0.5,0.09773,,,,,,89,24,21
+non_plot,NAPU,3,2,17,0.4,0.06248,,,,,,,,
+non_plot,NAPU,3,3,21,0.5,0.13599,,,,,,,,
+non_plot,NAPU,6,1,25,0.4,0.11895,,,,,split full plant in half ,83,40,22
+non_plot,NAPU,6,2,32,0.4,0.19112,,,,,,,,
+non_plot,NAPU,6,3,34,0.4,0.12794,,,,,,,,
+non_plot,NAPU,7,1,26,0.5,0.14292,,,,,,93,22,21
+non_plot,NAPU,7,2,27,0.4,0.13321,,,,,,,,
+non_plot,NAPU,7,3,30,0.4,0.19771,,,,,,,,
+non_plot,NAPU,8,1,39,0.4,0.22525,,,,,,85,10,34
+non_plot,NAPU,8,2,14,0.3,0.05705,,,,,,,,
+non_plot,NAPU,8,3,27,0.3,0.08534,,,,,,,,

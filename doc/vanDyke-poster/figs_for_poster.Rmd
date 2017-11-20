@@ -1,0 +1,430 @@
+---
+title: "Code to produce figures for MVD poster"
+output:
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+This document last updated on `r date()`
+
+
+```{r}
+library(dplyr); library(reshape2); library(stringr); library(tidyr); library(ggplot2); library(cowplot); library(tibble)
+```
+
+
+
+```{r}
+# Import measurements made in field
+field_measurements <- read.csv("~/Dropbox/2017-traits/2017-trait-measurements.csv", stringsAsFactors = F)
+tbl_df(field_measurements)
+
+# Convert a few of the columns into factors
+field_measurements <- field_measurements %>% mutate_at(c(2, 3, 4, 5), funs(factor))
+# let's uncapitalize all of the species names ... ugh
+field_measurements <- field_measurements %>% mutate(species = tolower(species))
+
+# Let's subset this dataframe so that it only has plants from plots that we care about for the current analysis:
+# Let's also subset it to not include the grasses
+field_measurements <- field_measurements %>% filter(plot %in% c("740", "741", "742", "746", "749", "753", "754", "comp", "cage_l")) %>%
+  filter(!(species %in% c("brma", "vuma", "homu")))
+
+# Let's set aside the issue of petioles for now.
+field_measurements <- field_measurements %>% mutate(wet_mass_g = rowSums(cbind(wet_mass_g, petiole_mass_g), na.rm = T)) %>% select(-petiole_mass_g) %>%
+  mutate(dry_mass_g = rowSums(cbind(dry_mass_g, dry_mass_petiole_g), na.rm = T)) %>% select(-dry_mass_petiole_g)
+
+```
+
+Now let's work on importing and cleaning the leaf area dataset
+```{r}
+# Import leaf areas
+leaf_areas <- read.csv("~/Dropbox/2017-traits/leaf_areas.csv", stringsAsFactors = F)
+tbl_df(leaf_areas)
+
+# Let's get rid of the cases where petiole area was done separately- for now, let's do all together.
+
+leaf_areas <- leaf_areas %>% group_by(Name) %>% mutate(Total.Area = sum(Total.Area)) %>%
+  filter(!(X == "petiole")) %>% select(-X)
+
+# Evidently there are some non-plot species in this dataframe:
+
+leaf_areas %>% filter(grepl("lebo", Name))
+
+# Let's remove those columns for now
+
+leaf_areas <- leaf_areas %>% filter(!(grepl("lebo", Name)))
+
+```
+
+We need to split up the "Name" column of `leaf_areas` before we merge it with the field measurements document. While we're at it, let's also make sure that we only have the plots and the species we want (i.e. no grasses, only non-hummock candi valley plots)
+
+```{r}
+leaf_areas <- separate(leaf_areas, Name, sep = "-", into = c("plot", "species", "plant_number", "leaf_number"))
+leaf_areas <- leaf_areas %>% 
+  filter(plot %in% c("740", "741", "742", "746", "749", "753", "754", "comp", "cage_l")) %>%
+  filter(!(species %in% c("brma", "vuma", "homu")))
+```
+
+Now we need to remove some columns (e.g. we don't need `count`, `average.size`, `x.area`) and rename others (`Total.Area` should just be `leaf_area_cm2`). We also need to convert some columns that are currently treated as characters into being treated as factors (eg. plot, species, plant_number, leaf_number). Finally, we need to remove the letter "p" from the plant_number column and the letter "l" from the leaf_number column. Finally, there are a few cases where the original `Name` column contained `.jpeg`; let's get rid of that as well.
+
+```{r}
+leaf_areas <- leaf_areas %>%  
+  select(plot:leaf_number, leaf_area_cm2 = Total.Area) # select the columns we want
+leaf_areas <- leaf_areas %>% 
+  mutate(plant_number = str_replace(plant_number, "p", "")) %>% # remove the p
+  mutate(leaf_number = str_replace(leaf_number, "l", "")) %>% # remove the l
+  mutate(leaf_number = str_replace(leaf_number, ".jpeg", "")) %>% 
+  mutate(leaf_number = str_replace(leaf_number, ".jpg", "")) %>% # remove the .jpeg
+  mutate_at(c(1:4), funs(factor)) 
+leaf_areas %>% filter(plot %in% c("740", "741", "742", "746", "749", "753", "754", "comp", "cage_l")) %>%
+  filter(!(species %in% c("brma", "vuma", "homu")))
+```
+
+Now, we are ready to merge the `leaf_areas` dataframe with the `field_measurements` dataframe:
+
+```{r}
+merged_measurements <- (left_join(field_measurements, leaf_areas, by = c("plot", "species", "plant_number", "leaf_number")))
+
+missing_areas <- merged_measurements %>% filter(is.na(leaf_area_cm2))
+
+missing_mass <- merged_measurements %>% filter(is.na(dry_mass_g))
+```
+
+Finally, there are a few species for which we did not get both L and C (namely, `chgl`, `clpu`, `clbo` - we only got Comp plot traits for these :'( )
+
+```{r}
+merged_measurements <- merged_measurements %>% filter(!(species %in% c("chgl", "clpu", "clbo")))
+```
+
+
+### Calculating traits
+
+Finally, we can calculate some traits from these numbers:
+
+
+```{r}
+merged_measurements <- merged_measurements %>% 
+  mutate(ldmc_mg_g = (dry_mass_g*1000)/wet_mass_g) %>%
+  mutate(sla_cm2_g = leaf_area_cm2/dry_mass_g)
+merged_measurements <- merged_measurements %>% mutate(plot_type = ifelse(plot == "comp", "comp", "lambda"))
+
+merged_measurements <- merged_measurements %>% select(19, 2:9, 16:18, 10:15)
+
+```
+
+### Averaging to the individual level
+
+Our dataframe currently has 1 row per leaf; we would like to do all our analyses at the individual level.
+
+```{r}
+individual_traits <- merged_measurements %>% group_by(plot_type, plot, species, plant_number) %>% summarise(leaf_area_cm2 = mean(leaf_area_cm2), ldmc_mg_g = mean(ldmc_mg_g), sla_cm2_g = mean(sla_cm2_g))
+
+# Let's do some exploratory plotting 
+
+# Histogram of leaf areas
+g_ind_traits <- ggplot(data = individual_traits)
+g_ind_traits + geom_histogram(aes(x = leaf_area_cm2))
+g_ind_traits + geom_histogram(aes(x = leaf_area_cm2)) + scale_x_log10()
+
+g_ind_traits + geom_histogram(aes(x = sla_cm2_g))
+g_ind_traits + geom_histogram(aes(x = sla_cm2_g)) + scale_x_log10()
+
+g_ind_traits + geom_histogram(aes(x = ldmc_mg_g))
+g_ind_traits + geom_histogram(aes(x = ldmc_mg_g)) + scale_x_log10()
+
+individual_traits <- individual_traits %>% 
+  mutate(log_leaf_area_cm2 = log10(leaf_area_cm2)) %>%
+  mutate(log_sla_cm2_g = log10(sla_cm2_g)) %>%
+  mutate(log_ldmc_mg_g = log10(ldmc_mg_g))
+
+```
+
+# Let's see if 2012 traits fit in here...
+
+The 2012 traits are, unfortunately, in a slightly different format, so we must do some more data munging first... Ugh.
+```{r}
+comptraits_2012 <- read.csv("~/Dropbox/2017-traits/old-data/tapioca_traits.csv", stringsAsFactors = F)
+# First let's select the columns we want
+comptraits_2012 <- comptraits_2012 %>% select(species, plant_number = plant, leaf_area_cm2 = aveLeafSize.cm2., ldmc_mg_g = ave_LDMC, sla_cm2_g = ave_SLA )
+# replace the infernal "SACA" in the 2012 df...
+comptraits_2012 <- comptraits_2012 %>% mutate(species = ifelse(species == "SACA", "SACO", species))
+
+# and to keep things clean let's remove the species for which we lack 2017 data
+comptraits_2012 <- comptraits_2012 %>% filter(!(species %in% c("ANAR", "AGRE", "ERBO", "SIGA", "GECA")))
+# and lowercase all the species names
+comptraits_2012$species <- tolower(comptraits_2012$species)
+
+# and get rid of rows with NAs...
+comptraits_2012 <- comptraits_2012 %>% filter(!(is.na(leaf_area_cm2)))
+comptraits_2012 <- comptraits_2012  %>%
+  mutate(log_leaf_area_cm2 = log10(leaf_area_cm2)) %>%
+  mutate(log_sla_cm2_g = log10(sla_cm2_g)) %>%
+  mutate(log_ldmc_mg_g = log10(ldmc_mg_g))
+
+comptraits_2012$year_measured = as.factor(2012)
+```
+
+
+## Compare 2012 competition traits to 2017 competition traits
+
+```{r}
+comptraits_2017 <- individual_traits %>% filter(plot_type == "comp") %>% ungroup() %>% select(-c(1:2))
+comptraits_2017$year_measured = as.factor(2017)
+
+comptraits <- rbind(comptraits_2012, comptraits_2017)
+```
+
+```{r}
+# Actually, we first need to remove some species that we can't really compare
+
+comptraits <- comptraits %>% filter(!(species %in% c("mica", "clbo", "clpu", "lopu")))
+
+comp_comparison <- ggplot(comptraits)
+
+comp_comparison + geom_histogram(aes(x = log_ldmc_mg_g, fill = year_measured)) 
+comp_comparison + geom_histogram(aes(x = log_leaf_area_cm2, fill = year_measured)) + facet_wrap("species")
+comp_comparison + geom_histogram(aes(x = log_sla_cm2_g, fill = year_measured)) + facet_wrap("species")
+comp_comparison + geom_histogram(aes(x = log_ldmc_mg_g, fill = year_measured)) + facet_wrap("species")
+
+summary(aov(data = comptraits, log_leaf_area_cm2~species+year_measured))
+summary(aov(data = comptraits, log_sla_cm2_g~species+year_measured))
+summary(aov(data = comptraits, log_ldmc_mg_g~species+year_measured))
+
+```
+
+# Let's analyse!
+
+```{r}
+# first, let's just look at the distribution of the traits
+
+pl <- ggplot(data= individual_traits) 
+pl + geom_histogram(aes(x = sla_cm2_g)) + facet_wrap("species")
+pl + geom_boxplot(aes(y = log_sla_cm2_g, x = species, fill = plot_type))
+
+# I think we need to get rid of MICA for now :-(
+
+individual_traits <- individual_traits %>% filter(!(species %in% c("mica")))
+
+individual_traits <- individual_traits %>% filter(is.finite(sla_cm2_g))
+
+pl <- ggplot(data= individual_traits) 
+
+pl + geom_boxplot(aes(y = log_leaf_area_cm2, x = species, fill = plot_type))
+pl + geom_boxplot(aes(y = log_sla_cm2_g, x = species, fill = plot_type))
+pl + geom_boxplot(aes(y = log_ldmc_mg_g, x = species, fill = plot_type))
+
+individual_traits
+
+sla_aov <-lm(data = individual_traits, log_sla_cm2_g~species*plot_type)
+anova(sla_aov)
+
+ldmc_aov <-lm(data = individual_traits, log_ldmc_mg_g~species*plot_type)
+anova(ldmc_aov)
+
+la_aov <-lm(data = individual_traits, log_leaf_area_cm2~species*plot_type)
+anova(la_aov)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Let's ask some simple questions
+
+On average, did trait values go up or down or stay equal?
+
+```{r}
+species_summary <- individual_traits %>% group_by(species, plot_type) %>% summarize_at(vars(leaf_area_cm2:log_ldmc_mg_g), mean, na.rm = T) 
+
+
+species_summary2 <- species_summary %>% gather(variable, value, -(plot_type:species)) %>% unite(temp, plot_type, variable) %>% spread(temp, value)
+
+species_summary2 <- species_summary2 %>% mutate(diff_area_LminusC = lambda_log_leaf_area_cm2 - comp_log_leaf_area_cm2 ,
+                           diff_ldmc_LminusC = lambda_log_ldmc_mg_g-comp_log_ldmc_mg_g,
+                           diff_sla_LminusC = lambda_log_sla_cm2_g- comp_log_sla_cm2_g)
+
+
+range(species_summary$sla_cm2_g)
+range(species_summary$ldmc_mg_g)
+range(individual_traits$leaf_area_cm2)
+View(species_summary2)
+```
+
+
+
+
+
+### Figures for poster
+
+```{r}
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+give.n <- function(x){ return(c(ymin = median, label = length(x))) }
+pl + geom_boxplot(aes(y = log_leaf_area_cm2, x = species, fill = plot_type))
+theme = theme_set(theme_minimal())
+theme = theme_update(legend.position="top", legend.title=element_blank(), panel.grid.major.x=element_blank())
+slaplot <- pl + geom_boxplot(aes(y = log_sla_cm2_g, x = species, fill = plot_type),position=position_dodge(.6), lwd = 1, fatten = .5) + 
+  labs(x = "", y = expression("log"[10]*"(Specific Leaf Area) (cm" ^2* "/g)")) + 
+  ggtitle("Trait varies across species and competitive background") + 
+  theme(plot.title = element_text(face = "bold", size = 25, vjust=2, hjust = 0.5), axis.title = element_text(size = 14, face = "plain") ) + 
+  guides(fill=FALSE) + scale_fill_manual(values=c("skyblue", "orange")) 
+
+ldmcplot <- pl + geom_boxplot(aes(y = log_ldmc_mg_g, x = species, fill = plot_type),position=position_dodge(.6), lwd = 1, fatten = .5) + 
+  labs(x = "", y = expression("log"[10]*"(Leaf Dry Matter Content) (mg/g)")) + 
+  theme(axis.title = element_text(size = 14, face = "plain"), legend.position = "bottom") + 
+  scale_fill_manual(values=c("skyblue", "orange")) +  guides(fill=FALSE)
+  # guides(fill=guide_legend(title=NULL), plot_type = guide_legend(override.aes = list(lwd = .1)))
+
+sizeplot <- pl + geom_boxplot(aes(y = log_leaf_area_cm2, x = species, fill = plot_type),position=position_dodge(.6), lwd = 1, fatten = .5) + 
+  labs(x = "Species", y = expression("log"[10]*"(Leaf Size) (cm"^2*")")) + 
+  theme(axis.title = element_text(size = 14, face = "plain"), legend.position = "bottom") + 
+  scale_fill_manual(values=c("skyblue", "orange")) +
+  guides(fill=guide_legend(title=NULL), plot_type = guide_legend(override.aes = list(lwd = .1)))
+
+
+to_save <- plot_grid(slaplot, ldmcplot, sizeplot, align = 'v', ncol = 1, labels = c("A: SLA", "B: LDMC", "C: Leaf Size"), label_size = 19)
+
+# save_plot("~/grad/conferences/esa2018/vanDyke-poster/alltraits.png", to_save, base_height = 18, base_aspect_ratio = .9)
+
+```
+
+```{r}
+species_summary2
+
+plot(1, type = "n", xlim = c(0,2), ylim = c(2.1,2.5), xaxt = "n", xlab = "Competitive background", ylab = expression(log[10]*"(Specific leaf area) (cm"^2*"/g"))
+axis(side = 1, at = c(0.5, 1.5), labels = c("No Competition", "Competition"))
+
+for (ii in 1:nrow(species_summary2)){
+  points(x = .5, y = species_summary2$comp_log_sla_cm2_g[ii], pch = 19)
+  
+  points(x = 1.5, y = species_summary2$lambda_log_sla_cm2_g[ii], pch = 19)
+  text(x = .3, y = c(-2, species_summary2$comp_log_sla_cm2_g[ii]), species_summary2$species[ii])
+  segments(x0 = .5, y0 = species_summary2$comp_log_sla_cm2_g[ii], x1 = 1.5, y1 = species_summary2$lambda_log_sla_cm2_g[ii])
+}
+
+for_normPlot <- species_summary2 %>% select(species, lambda_log_sla_cm2_g, comp_log_sla_cm2_g)
+
+for_normPlot <- t(for_normPlot) %>% as.data.frame()
+colnames(for_normPlot) <- as.character(for_normPlot["species",])
+
+```
+
+```{r, eval = F}
+# individual_traits 
+
+library(RColorBrewer)
+colors <- c(brewer.pal(12, "Set3"), "black")
+colors <- alpha(colors, alpha = .9)
+
+png("reaction-norm-leafarea-draft3.png", width = 1000, height = 1200)
+par(oma = c(2,2.5,0,0))
+plot(1, type = "n", xlim = c(0,3), ylim = c(-1,1.4), xaxt = "n",xlab = "", ylab = "", cex.axis = 2.4)
+mtext(side = 1, line = 4, cex = 3, "Competitive background")
+mtext(side = 2, line = 3, cex = 3, expression(log[10]*"(Leaf area) (cm"^2*")"))
+axis(side = 1, at = c(1, 2.5), labels = c("No Competition", "Competition"), cex.axis = 2.4)
+
+for (ii in 1:length(unique(individual_traits$species))) {
+  current_species = unique(individual_traits$species)[ii]
+  comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "comp") %>% ungroup() %>%
+    select(species, log_leaf_area_cm2)
+  non_comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "lambda") %>% ungroup() %>%
+    select(species, log_leaf_area_cm2)
+  
+    boxplot(non_comp$log_leaf_area_cm2, at = .7+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex = 2, pch = 19, outcol = colors[ii])
+  boxplot(comp$log_leaf_area_cm2, at = 2.2+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", ylab = "", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex =2, pch = 19, outcol = colors[ii])
+
+  segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_leaf_area_cm2), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_leaf_area_cm2), col = "black", lwd = 8)
+    segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_leaf_area_cm2), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_leaf_area_cm2), lwd = 4, col = colors[ii])
+
+}
+
+legend("topleft", bty ="n", pch = 21, pt.bg = colors, cex = 2, pt.cex = 3.5, pt.lwd = 3, legend = toupper(unique(individual_traits$species)))
+dev.off()
+
+png("reaction-norm-sla-draft3.png", width = 1000, height = 1200)
+par(oma = c(2,2.5,0,0))
+plot(1, type = "n", xlim = c(0,3), ylim = c(1.9,2.7), xaxt = "n",xlab = "", ylab = "", cex.axis = 2.4)
+mtext(side = 1, line = 4, cex = 3, "Competitive background")
+mtext(side = 2, line = 3, cex = 3, expression(log[10]*"(Specific leaf area) (cm"^2*"/g)"))
+axis(side = 1, at = c(1, 2.5), labels = c("No Competition", "Competition"), cex.axis = 2.4)
+
+for (ii in 1:length(unique(individual_traits$species))) {
+  current_species = unique(individual_traits$species)[ii]
+  comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "comp") %>% ungroup() %>%
+    select(species, log_sla_cm2_g)
+  non_comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "lambda") %>% ungroup() %>%
+    select(species, log_sla_cm2_g)
+  
+    boxplot(non_comp$log_sla_cm2_g, at = .7+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex = 2, pch = 19, outcol = colors[ii])
+  boxplot(comp$log_sla_cm2_g, at = 2.2+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", ylab = "", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex =2, pch = 19, outcol = colors[ii])
+
+  segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_sla_cm2_g), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_sla_cm2_g), col = "black", lwd = 8)
+    segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_sla_cm2_g), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_sla_cm2_g), col = colors[ii], lwd = 4)
+
+}
+
+legend("topleft", bty ="n", pch = 21, pt.bg = colors, cex = 2, pt.cex = 3.5, pt.lwd = 3, legend = toupper(unique(individual_traits$species)))
+dev.off()
+
+png("reaction-norm-ldmc-draft3.png", width = 1000, height = 1200)
+par(oma = c(2,2.5,0,0))
+plot(1, type = "n", xlim = c(0,3), ylim = c(1.9,2.7), xaxt = "n",xlab = "", ylab = "", cex.axis = 2.4)
+mtext(side = 1, line = 4, cex = 3, "Competitive background")
+mtext(side = 2, line = 3, cex = 3, expression(log[10]*"(Leaf Dry Matter Content) (mg/g)"))
+axis(side = 1, at = c(1, 2.5), labels = c("No Competition", "Competition"), cex.axis = 2.4)
+
+for (ii in 1:length(unique(individual_traits$species))) {
+  current_species = unique(individual_traits$species)[ii]
+  comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "comp") %>% ungroup() %>%
+    select(species, log_ldmc_mg_g)
+  non_comp <- individual_traits %>% filter(species == current_species) %>% 
+    filter(plot_type == "lambda") %>% ungroup() %>%
+    select(species, log_ldmc_mg_g)
+  
+    boxplot(non_comp$log_ldmc_mg_g, at = .7+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex = 2, pch = 19, outcol = colors[ii])
+  boxplot(comp$log_ldmc_mg_g, at = 2.2+((ii-1)*.04), add = T, boxwex = .2, type = "n", yaxt = "n", ylab = "", col = colors[ii], bty = "n", boxlwd = 4, lwd = 3, cex =2, pch = 19, outcol = colors[ii])
+
+  segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_ldmc_mg_g), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_ldmc_mg_g), col = "black", lwd = 8)
+    segments(x0 =.7+((ii-1)*.04) , y0 = median(non_comp$log_ldmc_mg_g), x1 = 2.2+((ii-1)*.04), y1 = median(comp$log_ldmc_mg_g), col = colors[ii], lwd = 4)
+
+}
+
+legend("topleft", bty ="n", pch = 21, pt.bg = colors, cex = 2, pt.cex = 3.5, pt.lwd = 3, legend = toupper(unique(individual_traits$species)))
+dev.off()
+
+```
+
+```{r}
+species_summary_for_sampling <- species_summary2 %>% as.data.frame() %>% column_to_rownames("species")
+
+
+comp_sla <- species_summary_for_sampling$comp_log_sla_cm2_g
+names(comp_sla) <- rownames(species_summary_for_sampling)
+sladiff <- dist(comp_sla)
+
+ind_sla <- individual_traits %>% ungroup() %>%  filter(plot_type == "comp") %>% select(species, log_sla_cm2_g) 
+
+differences <- replicate(n = 1000, ind_sla %>% group_by(species) %>% sample_n(1) %>% as.data.frame() %>% column_to_rownames("species") %>% dist())
+sladiffvec <- as.numeric(sladiff)
+
+source("~/grtools/hist_plotter.R")
+par(mfrow = c(4,5))
+for(ii in 1:78) {
+  hist(differences[ii,])
+  abline(v = sladiffvec[ii], lwd = 3)
+}
+
+```
