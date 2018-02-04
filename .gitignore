@@ -27,6 +27,8 @@ vignettes/*.pdf
 *.jpg
 *.jpeg
 *.png
+# documents
+*.pdf
 # Dropbox 
 .dropbox
 packrat/lib*/

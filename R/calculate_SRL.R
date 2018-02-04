@@ -13,6 +13,8 @@ root_data <- merge(lengths, weights, by = c('plot', 'species', 'plant_number'))
 root_data <- root_data %>% mutate(SRL = total_length_cm/dry_weight)
 
 root_data %>% 
-  group_by(plot, species, plant_number) %>% 
-  filter( datetime == max(datetime)) %>% 
-  ggplot( aes(x = species, y = SRL/100)) + geom_point()
+  ggplot( aes(x = species, y = SRL/100)) + 
+    geom_point() + 
+    geom_boxplot(alpha = 0.2)
+
+write_csv(root_data, 'data/non_plot_root_traits.csv')

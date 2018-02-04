@@ -4,10 +4,8 @@ library(stringr)
 library(dplyr)
 library(tidyr)
 
-file_names <- dir(path = 'data', pattern = '*.xls$', recursive = 'T') 
-
+file_names <- dir(path = 'data', pattern = '*.xls$', recursive = 'T', full.names = T) 
 df <- data.frame(file_name = file_names)
-
 df <- df %>% 
   mutate( notes = ifelse( str_detect('with_petiole', string = file_name), 'with_petiole', '')  ) %>% 
   mutate( notes = ifelse( str_detect('no_petiole', string = file_name), 'no_petiole', notes)) %>% 
@@ -40,5 +38,6 @@ test <- leaf_area_dat %>% filter( is.na(Species)) %>% mutate( scan_id = str_extr
 test <- merge( test, scan_index, by = 'scan_id')
 test <- test %>% mutate( plant = paste0('p', plant.y) ) %>% dplyr::select(-scan_id, -plant.x)
 
+leaf_area_dat %>% filter(Species == 'brdi')
 
 write.csv(leaf_area_dat, 'data/non-plot_leaf_area_data.csv', row.names = F)
