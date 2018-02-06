@@ -1,8 +1,9 @@
 rm(list = ls())
 library(tidyverse)
 
-weights <- read.csv('data/root_data/root_weights.csv')
-lengths <- read.csv('data/root_data/cleaned_root_lengths.csv')
+weights <- read.csv('data-raw/root_data/root_weights.csv')
+
+lengths <- read.csv('data-raw/root_data/cleaned_root_lengths.csv')
 
 lengths$datetime <- as.POSIXct(lengths$datetime)
 
@@ -17,4 +18,4 @@ root_data %>%
     geom_point() + 
     geom_boxplot(alpha = 0.2)
 
-write_csv(root_data, 'data/non_plot_root_traits.csv')
+write_csv(root_data, 'data-raw/non_plot_root_traits.csv')

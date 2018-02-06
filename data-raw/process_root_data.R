@@ -20,7 +20,7 @@ process_root_data <- function(file_path) {
 }
 
 # ------------------------------------------------------ 
-root_files <- dir('data/root_data', 'root-lengths', full.names = T)
+root_files <- dir('data-raw/root_data', 'root-lengths', full.names = T)
 
 # ------------------------------------------------------
 
@@ -39,4 +39,4 @@ root_data$datetime <- as.POSIXct(as.character(root_data$timestamp), format = '%m
 
 out <- root_data %>% select(plot, species, plant_number, total_length_cm, id, datetime)
 
-write.csv(out, 'data/root_data/cleaned_root_lengths.csv', row.names = F)
+write.csv(out, 'data-raw/root_data/cleaned_root_lengths.csv', row.names = F)
