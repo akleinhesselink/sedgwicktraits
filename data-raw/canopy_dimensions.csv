@@ -1,0 +1,87 @@
+species,plant_number,width,length,height
+microseris,1,2,2,18.5
+microseris,2,3,4.1,20.5
+microseris,3,3,2.5,14.6
+microseris,4,9.5,5.2,22.2
+microseris,5,8.5,6,28.9
+microseris,6,6.5,5.5,26.4
+microseris,7,5,2,23.4
+microseris,8,5.2,3,16.6
+LASE,2,16,12,27
+lase,3,22,5,23
+lase,8,17,8,18
+lase,5,22,4,23
+LASE,1,13,2,20
+LASE,4,23,15,25
+LASE,6,17,11,20
+LASE,7,10,4,14
+AVFA,1,8,8,58
+AVFA,2,7,7,50
+AVFA,4,21,17,66
+AVFA,3,26,13,69
+AVFA,5,19,15,50
+AVFA,6,13,20,52
+AVFA,7,25,17,70
+AVFA,8,20,13,59
+LOMU,2,19,16,22
+LOMU,1,25,25,30
+LOMU,3,20,9,25
+LOMU,4,22,13,25
+LOMU,5,27,24,52
+LOMU,6,14,19,33
+LOMU,7,19,23,33
+LOMU,8,10,8,38
+Carduus pycnocephala,1,16,14,46
+Carduus pycnocephala,2,20,22,67
+Carduus pycnocephala,3,30,19,87
+Carduus pycnocephala,4,24,14,61
+Carduus pycnocephala,5,23,12,61
+Carduus pycnocephala,5.1,19,20,58
+Carduus pycnocephala,6,24,18,65
+Carduus pycnocephala,7,20,18,56
+Carduus pycnocephala,8,20,23,94
+NAPU,1,19,16,81
+NAPU,2,21,15,87
+NAPU,4,26,17,71
+NAPU,5,16,11,49
+NAPU,3,24,21,89
+NAPU,6,40,22,83
+NAPU,7,22,21,93
+NAPU,8,10,34,85
+Chlorogallum pomeridianum,1,44,27,28
+Chlorogallum pomeridianum,2,30,9,40
+Chlorogallum pomeridianum,3,22,10,25
+Chlorogallum pomeridianum,4,24,27,24
+Chlorogallum pomeridianum,5,8,30,29
+Chlorogallum pomeridianum,6,50,73,24
+Chlorogallum pomeridianum,7,23,16,31
+Chlorogallum pomeridianum,8,40,30,62
+Calystegia collina,1,18,16,5
+Calystegia collina,2,20,19,7
+Calystegia collina,3,10,14,6
+Calystegia collina,4,12,12,5
+Calystegia collina,5,12,12,5
+Calystegia collina,6,16,13,9
+Calystegia collina,7,19,8,11
+Calystegia collina,8,11,11,6
+Croton setigerus,1,9,9,2
+Croton setigerus,2,5,5,2
+Croton setigerus,3,14,12,5
+Croton setigerus,4,12,11,5
+Croton setigerus,5,6,5,2
+Croton setigerus,6,8,7,2
+Croton setigerus,7,6,6,6
+Croton setigerus,8,7,7,3
+Lagophylla ramosissima,1,5,7,26
+Lagophylla ramosissima,2,7,7,25
+Lagophylla ramosissima,3,6,5,25
+Lagophylla ramosissima,4,4,3,21
+Lagophylla ramosissima,5,7,5,22
+Lagophylla ramosissima,6,8,7,33
+Lagophylla ramosissima,7,4,5,27
+Lagophylla ramosissima,8,4,4,20
+SIGA,1,10,5,25
+SIGA,5,13,9,37
+SIGA,2,5,16,38
+SIGA,3,28,36,42
+SIGA,4,25,27,41
