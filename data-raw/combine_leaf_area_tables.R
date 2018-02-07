@@ -4,7 +4,11 @@ library(stringr)
 library(dplyr)
 library(tidyr)
 
+outfile <- 'data-raw/non-plot_leaf_area_data.csv'
+scan_index <- read.csv('data-raw/all-scans/scans-03032017/scan_index.csv')
 file_names <- dir(path = 'data-raw', pattern = '*.xls$', recursive = 'T', full.names = T) 
+
+
 df <- data.frame(file_name = file_names)
 df <- df %>% 
   mutate( notes = ifelse( str_detect('with_petiole', string = file_name), 'with_petiole', '')  ) %>% 
@@ -31,13 +35,11 @@ leaf_area_dat$plant <- tolower(str_extract( leaf_area_dat$Slice, pattern = '[Pp]
 leaf_area_dat$leaf <- tolower(str_extract( leaf_area_dat$Slice, pattern = '[Ll][0-9]{1}+' ))
 leaf_area_dat$all <- str_detect(leaf_area_dat$Slice, pattern = '[Aa][Ll]{2}')
 
-scan_index <- read.csv('data-raw/all-scans/scans-03032017/scan_index.csv')
-
 scan_index <- scan_index[, c('scan_id', 'plant', 'species')] 
 test <- leaf_area_dat %>% filter( is.na(Species)) %>% mutate( scan_id = str_extract( pattern = '[0-9]+', plant))
 test <- merge( test, scan_index, by = 'scan_id')
 test <- test %>% mutate( plant = paste0('p', plant.y) ) %>% dplyr::select(-scan_id, -plant.x)
 
-leaf_area_dat %>% filter(Species == 'brdi')
+leaf_area_dat %>% filter(Species == 'lomu', plant == 'p3')
 
-write.csv(leaf_area_dat, 'data-raw/non-plot_leaf_area_data.csv', row.names = F)
+write.csv(leaf_area_dat, outfile, row.names = F)
