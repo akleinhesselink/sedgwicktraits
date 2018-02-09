@@ -3,12 +3,19 @@ library(tidyverse)
 library(stringr)
 library(sedgwickspecies)
 
-outfile <- 'data-raw/clean_molignari_traits.csv'
+url <- 'http://datadryad.org/bitstream/handle/10255/dryad.55089/Dryad_Final.xlsx?sequence=1'
+outfile <- 'data-raw/old-data/molinari.xlsx'
+outclean <- 'data-raw/old-data/molinari.csv'
 
-molignari <- read.csv('data-raw/Molignari_Dryad_Final.csv')
+if( !file.exists(outfile)){ download.file(url, outfile) } 
 
-molignari <- molignari %>%
-  mutate( standard_binomial = Species.Name) %>%
+molinari <- readxl::read_xlsx(outfile, na = 'NA')
+
+molinari <- 
+  molinari %>%
+  mutate( standard_binomial = `Species Name`) %>%
+  mutate( max_height = `Height (m)`, seed_mass = `Seed Mass (mg)`, SLA = `SLA (cm2/g)`) %>%
+  mutate( max_height = max_height*100, seed_mass = seed_mass/1000) %>% 
   mutate( standard_binomial = str_replace_all(standard_binomial, 
                                               c('Avena sp.'='Avena fatua', 
                                                 'Dodecatheon clevlandii'='Dodecatheon clevelandii', 
@@ -21,8 +28,15 @@ molignari <- molignari %>%
                                                 'Nassella pulchra' = 'Stipa pulchra',
                                                 'Navarretia jaredii'='Navarretia mitracarpa', 
                                                 'Plagiobothrys nothofolvus'='Plagiobothrys nothofulvus',
-                                                'Vulpia myuros' = 'Festuca myuros'))) %>% 
-  left_join( sedgwick_plants %>% distinct(standard_binomial, USDA_symbol), by = 'standard_binomial') %>% 
-  mutate( max_height = Height..m.*100, seed_mass = Seed.Mass..mg./1000, SLA = SLA..cm2.g.)
+                                                'Vulpia myuros' = 'Festuca myuros')))
 
-write_csv( molignari, outfile)
+molinari <- 
+  molinari %>% 
+  left_join( sedgwick_plants %>% 
+               distinct(standard_binomial, USDA_symbol), by = 'standard_binomial')
+
+molinari <- 
+  molinari %>% 
+  select( - c( `Species Name`, `SLA (cm2/g)`, `Height (m)`, `Seed Mass (mg)`))
+
+write_csv( molinari, outclean)
