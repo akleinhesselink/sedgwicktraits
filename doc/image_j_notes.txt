@@ -1,0 +1,38 @@
+processing images in image-j for leaf area: 
+
+Select each menu or option indicated with an arrow. 
+
+
+
+step 1. Open image-j
+	--> Analyze
+	--> set scale
+		Images should be scanned in 600 dpi, or 600 pixels per 2.54 cm
+
+step 2. Import image stack 
+
+	--> file 
+	--> import
+	--> stack
+		(select one image in folder)
+	--> filter by name of species
+
+
+step 2. 
+	--> Process
+	--> make binary
+
+step 3. (for selecting part of an image or 
+	analyzing groups of leaves seperately)
+	--> select rectangular ROI
+	--> image 
+	--> crop 
+
+step 4. 
+	--> analyze
+	--> analyze particles
+	--> cm scale -> 0.04 to inf. 
+	options: clear results, summarize, exclude on edges, include holes
+	
+	--> ok 
+
