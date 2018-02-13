@@ -43,5 +43,3 @@ dat <-
 
 dat %>% 
   write_csv(outfile)
-
-

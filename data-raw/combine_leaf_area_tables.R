@@ -31,8 +31,6 @@ for ( i in 1:nrow(files)){
 
 leaf_area <- do.call(rbind, dat)
 
-
-
 leaf_area$Slice <- str_replace_all(leaf_area$Slice, c('_[Pp]' = '-p', '_[Ll]' = '-l'))
 leaf_area$Species <- str_extract( leaf_area$Slice, '^[A-Za-z]{2,}[1-9]?(?=[\\-_]{1})')
 leaf_area$plant <- tolower(str_extract( leaf_area$Slice, pattern = '[Pp][0-9][0-9]?'))
