@@ -4,9 +4,9 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-setwd('~/Dropbox/2017-traits/scans-03032017/')
-scan_id <- read.csv('scan_index.csv')
-files <- dir('.', '*.xls')
+dir_out <- 'data-raw/all-scans/scans-03032017'
+scan_id <- read.csv('data-raw/all-scans/scans-03032017/scan_index.csv')
+files <- dir(dir_out, '*.xls', full.names = T)
 
 dat <- lapply(files, read.csv, sep = '\t')
 dat <- do.call( rbind, dat )
@@ -20,4 +20,5 @@ dat$leaf [ dat$leaf == 'LVS' ]  <- 'ALL'
 dat <- split( dat, dat$species)
 species <- names(dat)
 
-mapply( x = dat, y = species, function(x, y) { write.csv(x, file = paste0(y,'_leaf_area.csv'), row.names = F)})
+mapply( x = dat, y = species, function(x, y) { 
+  write.table(x, file = file.path( dir_out, paste0(y,'_leaf_area.xls')), row.names = F, sep = '\t')})
