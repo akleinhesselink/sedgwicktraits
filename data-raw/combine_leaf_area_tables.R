@@ -1,16 +1,18 @@
 rm(list = ls())
 
 library(stringr)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
+library(sedgwickspecies)
 
-outfile <- 'data-raw/non-plot_leaf_area_data.csv'
-scan_index <- read.csv('data-raw/all-scans/scans-03032017/scan_index.csv')
+outfile <- 'data-raw/leaf_area.csv'
+scan_index <- read_csv('data-raw/all-scans/scans-03032017/scan_index.csv')
 file_names <- dir(path = 'data-raw', pattern = '*.xls$', recursive = 'T', full.names = T) 
+alias <- read_csv('data-raw/alias.csv')
 
+files <- data.frame(file_name = file_names)
 
-df <- data.frame(file_name = file_names)
-df <- df %>% 
+files <- 
+  files %>% 
   mutate( notes = ifelse( str_detect('with_petiole', string = file_name), 'with_petiole', '')  ) %>% 
   mutate( notes = ifelse( str_detect('no_petiole', string = file_name), 'no_petiole', notes)) %>% 
   mutate( raw_date = str_extract(string = file_names, '[0-9]{8}')) %>% 
@@ -18,28 +20,64 @@ df <- df %>%
 
 dat <- list()
 
-for ( i in 1:nrow(df)){ 
+for ( i in 1:nrow(files)){ 
 
-  temp <- read.csv(as.character( df$file_name[i] ), sep = '\t')
-  temp$notes <- df$notes[i]
-  temp$date <- df$date[i]
-  
+  temp <- read.csv(as.character( files$file_name[i] ), sep = '\t')
+  temp$notes <- files$notes[i]
+  temp$date <- files$date[i]
+  temp$file <- files$file_name[i]
   dat[[i]] <- temp 
 }
 
-leaf_area_dat <- do.call(rbind, dat)
+leaf_area <- do.call(rbind, dat)
 
-leaf_area_dat$Slice <- str_replace_all(leaf_area_dat$Slice, c('_[Pp]', '_[Ll]'), c('-p', '-l'))
-leaf_area_dat$Species <- tolower(str_match( string = leaf_area_dat$Slice, pattern = '^([A-Za-z\\-_]*).[Pp][0-9]')[, 2])
-leaf_area_dat$plant <- tolower(str_extract( leaf_area_dat$Slice, pattern = '[Pp][0-9][0-9]?'))
-leaf_area_dat$leaf <- tolower(str_extract( leaf_area_dat$Slice, pattern = '[Ll][0-9]{1}+' ))
-leaf_area_dat$all <- str_detect(leaf_area_dat$Slice, pattern = '[Aa][Ll]{2}')
 
-scan_index <- scan_index[, c('scan_id', 'plant', 'species')] 
-test <- leaf_area_dat %>% filter( is.na(Species)) %>% mutate( scan_id = str_extract( pattern = '[0-9]+', plant))
-test <- merge( test, scan_index, by = 'scan_id')
-test <- test %>% mutate( plant = paste0('p', plant.y) ) %>% dplyr::select(-scan_id, -plant.x)
 
-leaf_area_dat %>% filter(Species == 'lomu', plant == 'p3')
+leaf_area$Slice <- str_replace_all(leaf_area$Slice, c('_[Pp]' = '-p', '_[Ll]' = '-l'))
+leaf_area$Species <- str_extract( leaf_area$Slice, '^[A-Za-z]{2,}[1-9]?(?=[\\-_]{1})')
+leaf_area$plant <- tolower(str_extract( leaf_area$Slice, pattern = '[Pp][0-9][0-9]?'))
+leaf_area$leaf <- tolower(str_extract( leaf_area$Slice, pattern = '[Ll][0-9]{1}+' ))
 
-write.csv(leaf_area_dat, outfile, row.names = F)
+leaf_area <- 
+  leaf_area %>% 
+  mutate( leaf = ifelse( is.na(leaf), tolower( str_extract(file, '(?<=l)\\d+(?=.xls)')), leaf))
+
+scan_index <- 
+  scan_index %>% 
+  select( scan_id, species) %>% 
+  mutate( indexed = T)
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( indexed = ifelse(is.na(Species) , T, F)) %>% 
+  mutate( scan_id = as.integer(str_extract( pattern = '[0-9]+', plant))) %>%
+  left_join(scan_index, by = c('scan_id', 'indexed')) %>% 
+  mutate(Species = ifelse( indexed, as.character(species), Species))
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate(all = is.na(leaf)) %>% 
+  select( Slice, Species, plant, leaf, all, Count, Total.Area, date, notes) %>% 
+  rename( 'slice' = Slice, 'count' = Count, 'total_area' = Total.Area, 'alias' = Species) %>% 
+  mutate( leaf = str_extract(leaf, '\\d+'), plant = str_extract(plant, '\\d+'))
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( alias = toupper(alias)) %>% 
+  left_join( alias, by = 'alias') 
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( petiole = ifelse(notes == 'with_petiole', T, F))
+
+leaf_area <- 
+  leaf_area %>% 
+  rename(plant_number = plant, leaf_number= leaf) %>% 
+  mutate( date = lubridate::as_date( date )) %>% 
+  mutate( plant_number = str_extract(plant_number, '\\d+'), 
+          leaf_number = str_extract(leaf_number, '\\d+'))
+
+
+leaf_area %>% 
+  write_csv(outfile)
+
