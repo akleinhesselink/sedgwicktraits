@@ -1,22 +1,30 @@
 library(tidyverse)
 library(ggplot2)
 
-my_codes <- read_csv('data-raw/my_codes.csv')
-leaf <- read_csv('data-raw/non_plot_leaf_data.csv')
-root <- read_csv('data-raw/non_plot_root_traits.csv')
-heights <- read_csv('data-raw/2017-plant-heights.csv')
+
+source( 'data-raw/ggplots_for_leaf_traits.R')
+
+leaf <- read_csv('data-raw/leaf_traits.csv')
+root <- read_csv('data-raw/specific_root_length.csv')
+heights <- read_csv('data-raw/clean_heights.csv')
+seed_mass <- read_csv('data-raw/clean_seed_mass.csv')
 
 leaf$plant_number <- as.character(leaf$plant_number)
 
 
+leaf %>% filter(!censor) %>% ggSLA 
+leaf %>% filter(! censor) %>% ggLDMC
+
+leaf %>% filter(!censor, USDA_symbol == 'LEBI4') %>% ggSLA + geom_text( aes( label = paste(plant_number, leaf_number, sep = ',')))
+leaf %>% filter(!censor, USDA_symbol == 'AMME') %>% ggLDMC + geom_text( aes( label = paste(plot, plant_number, leaf_number, sep = ',')))
+
 
 dat <- 
   leaf %>% 
-  group_by(USDA_symbol, plant_number) %>% 
-  summarise(SLA = mean(SLA, na.rm = T), LDMC = mean(LDMC, na.rm = T), LA = mean(Total.Area, na.rm = T)) %>% 
+  filter( !censor) %>%
+  group_by(USDA_symbol, date, petiole, plant_number) %>% 
+  summarise(SLA = mean(SLA, na.rm = T), LDMC = mean(LDMC, na.rm = T), LA = mean(LA, na.rm = T)) %>% 
   left_join( root, by = c('USDA_symbol', 'plant_number')) 
-
-dat %>% filter(USDA_symbol == 'LOPE', plant_number == 3)
 
 dat %>% 
   select( USDA_symbol, plant_number, LA, SLA, LDMC, SRL) %>% 

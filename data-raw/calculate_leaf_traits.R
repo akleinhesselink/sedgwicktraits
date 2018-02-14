@@ -35,17 +35,26 @@ dat <-
 dat <- 
   dat %>% 
   mutate(leaf_number = as.character(leaf_number)) %>% 
-  left_join(la_dat, by = c('USDA_symbol', 'plant_number', 'leaf_number', 'petiole')) %>% 
+  left_join(la_dat, by = c('USDA_symbol', 'plant_number', 'leaf_number', 'petiole', 'date')) %>% 
   mutate(SLA = total_area/dry_mass_g) %>% 
   mutate(LDMC = dry_mass_g/wet_mass_g)  %>% 
   mutate( LA = total_area/n_leaves) %>% 
-  select( sequence, species, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, wet_mass_g, dry_mass_g, SLA, LDMC, LA)
+  select(date, sequence, species, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, wet_mass_g, dry_mass_g, SLA, LDMC, LA)
+
+# edit/censor records ----------------------------------------------------------------------- # 
+
+
+dat <- 
+  dat %>% 
+  mutate( censor = F) %>% 
+  mutate( censor = ifelse(USDA_symbol == 'FEMY2' & leaf_number == 3 & plant_number == 3, T, censor))
+  
+dat <- 
+  dat %>% 
+  mutate( censor = ifelse( USDA_symbol == 'AMME' & leaf_number == 1 & plant_number == 3 & plot == 'comp', T, censor))
 
 # output -------------------------------------------------------- 
 
 dat %>% 
   write_csv(outfile)
 
-test <- 
-  dat %>% 
-  filter( is.na(USDA_symbol))

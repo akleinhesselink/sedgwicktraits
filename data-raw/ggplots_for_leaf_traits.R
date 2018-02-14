@@ -1,17 +1,25 @@
 # functions for plotting leaf traits
+library(tidyverse)
+library(ggplot2)
 
 ggWetDry <- 
-  ggplot(dat, aes( x = dry_mass_g, y = wet_mass_g)) + 
+  function(dat){ 
+  ggplot(dat , aes( x = dry_mass_g, y = wet_mass_g)) + 
   geom_point() + 
-  facet_wrap(~USDA_symbol,scales = 'free')
+  facet_wrap(~USDA_symbol,scales = 'free') 
+}
 
 ggLDMC <- 
-  ggplot(dat, aes(x = USDA_symbol, y = LDMC)) + 
-  geom_point() +
-  theme(axis.text = element_text(angle = 90))
+  function(dat){ 
+  ggplot(dat , aes(x = USDA_symbol, y = LDMC)) + 
+  geom_point() + 
+  coord_flip()
+}
 
 ggSLA <- 
-  ggplot(dat, aes(x = USDA_symbol, y = SLA)) + 
-  geom_point() + 
-  theme(axis.text = element_text(angle = 90))
+  function( dat ) { 
+  ggplot(dat , aes(x = USDA_symbol, y = SLA, color = petiole)) + 
+  geom_point(alpha = 0.5) + 
+  coord_flip()
+}
 

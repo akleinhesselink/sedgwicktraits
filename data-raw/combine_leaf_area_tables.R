@@ -5,7 +5,6 @@ library(tidyverse)
 library(sedgwickspecies)
 
 outfile <- 'data-raw/leaf_area.csv'
-scan_index <- read_csv('data-raw/all-scans/scans-03032017/scan_index.csv')
 file_names <- dir(path = 'data-raw', pattern = '*.xls$', recursive = 'T', full.names = T) 
 alias <- read_csv('data-raw/alias.csv')
 
@@ -32,6 +31,14 @@ for ( i in 1:nrow(files)){
 leaf_area <- do.call(rbind, dat)
 
 leaf_area$Slice <- str_replace_all(leaf_area$Slice, c('_[Pp]' = '-p', '_[Ll]' = '-l'))
+
+# correct mislabeled slices ------------------------------------------
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = ifelse( Slice == 'lomu-p3-l1', 'lomu-p1-all', Slice))  
+
+# --------------------------------------------------------------------
+
 leaf_area$Species <- str_extract( leaf_area$Slice, '^[A-Za-z]{2,}[1-9]?(?=[\\-_]{1})')
 leaf_area$plant <- tolower(str_extract( leaf_area$Slice, pattern = '[Pp][0-9][0-9]?'))
 leaf_area$leaf <- tolower(str_extract( leaf_area$Slice, pattern = '[Ll][0-9]{1}+' ))
@@ -39,6 +46,7 @@ leaf_area$leaf <- tolower(str_extract( leaf_area$Slice, pattern = '[Ll][0-9]{1}+
 leaf_area <- 
   leaf_area %>% 
   mutate( leaf = ifelse( is.na(leaf), tolower( str_extract(file, '(?<=l)\\d+(?=.xls)')), leaf))
+
 
 leaf_area <- 
   leaf_area %>% 
