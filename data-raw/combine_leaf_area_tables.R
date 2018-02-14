@@ -40,18 +40,6 @@ leaf_area <-
   leaf_area %>% 
   mutate( leaf = ifelse( is.na(leaf), tolower( str_extract(file, '(?<=l)\\d+(?=.xls)')), leaf))
 
-scan_index <- 
-  scan_index %>% 
-  select( scan_id, species) %>% 
-  mutate( indexed = T)
-
-leaf_area <- 
-  leaf_area %>% 
-  mutate( indexed = ifelse(is.na(Species) , T, F)) %>% 
-  mutate( scan_id = as.integer(str_extract( pattern = '[0-9]+', plant))) %>%
-  left_join(scan_index, by = c('scan_id', 'indexed')) %>% 
-  mutate(Species = ifelse( indexed, as.character(species), Species))
-
 leaf_area <- 
   leaf_area %>% 
   mutate(all = is.na(leaf)) %>% 

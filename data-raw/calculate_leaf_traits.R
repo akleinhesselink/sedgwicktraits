@@ -30,6 +30,8 @@ dat <-
   mutate( petiole = str_detect(notes, regex('.*with.petiole.*', ignore_case = T))) %>%
   mutate( petiole = ifelse (is.na(petiole), F, petiole))
 
+
+
 dat <- 
   dat %>% 
   mutate(leaf_number = as.character(leaf_number)) %>% 
@@ -37,9 +39,13 @@ dat <-
   mutate(SLA = total_area/dry_mass_g) %>% 
   mutate(LDMC = dry_mass_g/wet_mass_g)  %>% 
   mutate( LA = total_area/n_leaves) %>% 
-  select( sequence, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, SLA, LDMC, LA)
+  select( sequence, species, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, wet_mass_g, dry_mass_g, SLA, LDMC, LA)
 
 # output -------------------------------------------------------- 
 
 dat %>% 
   write_csv(outfile)
+
+test <- 
+  dat %>% 
+  filter( is.na(USDA_symbol))
