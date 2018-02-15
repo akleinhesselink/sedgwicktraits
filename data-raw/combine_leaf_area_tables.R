@@ -15,7 +15,7 @@ files <-
   mutate( notes = ifelse( str_detect('with_petiole', string = file_name), 'with_petiole', '')  ) %>% 
   mutate( notes = ifelse( str_detect('no_petiole', string = file_name), 'no_petiole', notes)) %>% 
   mutate( raw_date = str_extract(string = file_names, '[0-9]{8}')) %>% 
-  mutate( date = as.Date( raw_date, format = '%d%m%Y'))
+  mutate( scan_date = as.Date( raw_date, format = '%d%m%Y'))
 
 dat <- list()
 
@@ -23,7 +23,7 @@ for ( i in 1:nrow(files)){
 
   temp <- read.csv(as.character( files$file_name[i] ), sep = '\t')
   temp$notes <- files$notes[i]
-  temp$date <- files$date[i]
+  temp$scan_date <- files$scan_date[i]
   temp$file <- files$file_name[i]
   dat[[i]] <- temp 
 }
@@ -55,7 +55,7 @@ leaf_area <-
 leaf_area <- 
   leaf_area %>% 
   mutate(all = is.na(leaf)) %>% 
-  select( Slice, Species, plant, leaf, all, Count, Total.Area, date, notes) %>% 
+  select( Slice, Species, plant, leaf, all, Count, Total.Area, scan_date, notes) %>% 
   rename( 'slice' = Slice, 'count' = Count, 'total_area' = Total.Area, 'alias' = Species) %>% 
   mutate( leaf = str_extract(leaf, '\\d+'), plant = str_extract(plant, '\\d+'))
 
@@ -71,7 +71,7 @@ leaf_area <-
 leaf_area <- 
   leaf_area %>% 
   rename(plant_number = plant, leaf_number= leaf) %>% 
-  mutate( date = lubridate::as_date( date )) %>% 
+  mutate( scan_date = lubridate::as_date( scan_date )) %>% 
   mutate( plant_number = str_extract(plant_number, '\\d+'), 
           leaf_number = str_extract(leaf_number, '\\d+')) %>% 
   mutate( plot = 'non_plot')

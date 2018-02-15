@@ -12,11 +12,13 @@ seed_mass <- read_csv('data-raw/clean_seed_mass.csv')
 leaf$plant_number <- as.character(leaf$plant_number)
 
 
-leaf %>% filter(!censor) %>% ggSLA 
-leaf %>% filter(! censor) %>% ggLDMC
+leaf %>% filter(!censor & plot == 'non_plot') %>% ggSLA 
+leaf %>% filter(!censor & plot == 'non_plot') %>% ggLDMC
 
-leaf %>% filter(!censor, USDA_symbol == 'LEBI4') %>% ggSLA + geom_text( aes( label = paste(plant_number, leaf_number, sep = ',')))
-leaf %>% filter(!censor, USDA_symbol == 'AMME') %>% ggLDMC + geom_text( aes( label = paste(plot, plant_number, leaf_number, sep = ',')))
+leaf %>% filter(!censor) %>% ggSLA 
+leaf %>% filter(!censor) %>% ggLDMC
+
+
 
 
 dat <- 

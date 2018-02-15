@@ -58,7 +58,7 @@ dat <-
   mutate(SLA = total_area/dry_mass_g) %>% 
   mutate(LDMC = dry_mass_g/wet_mass_g)  %>% 
   mutate(LA = total_area/n_leaves) %>% 
-  select(sequence, species, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, wet_mass_g, dry_mass_g, SLA, LDMC, LA)
+  select(sequence, date, species, USDA_symbol, plot, plant_number, leaf_number, petiole, leaf_length_cm, leaf_width_cm, wet_mass_g, dry_mass_g, SLA, LDMC, LA)
 
 # edit/censor records ----------------------------------------------------------------------- # 
 

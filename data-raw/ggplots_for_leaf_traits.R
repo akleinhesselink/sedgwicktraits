@@ -11,14 +11,14 @@ ggWetDry <-
 
 ggLDMC <- 
   function(dat){ 
-  ggplot(dat , aes(x = USDA_symbol, y = LDMC)) + 
-  geom_point() + 
+  ggplot(dat , aes(x = USDA_symbol, y = LDMC, shape = petiole, color = (plot == "non_plot"))) + 
+  geom_point(alpha = 0.5) + 
   coord_flip()
 }
 
 ggSLA <- 
   function( dat ) { 
-  ggplot(dat , aes(x = USDA_symbol, y = SLA, color = petiole)) + 
+  ggplot(dat , aes(x = USDA_symbol, y = SLA, shape = petiole, color = (plot == "non_plot"))) + 
   geom_point(alpha = 0.5) + 
   coord_flip()
 }
