@@ -37,6 +37,10 @@ leaf_area <-
   leaf_area %>% 
   mutate( Slice = ifelse( Slice == 'lomu-p3-l1', 'lomu-p1-all', Slice))  
 
+leaf_area <- 
+  leaf_area %>% 
+  filter( !str_detect( Slice, 'avfa-p7-l3-\\d$'))
+
 # --------------------------------------------------------------------
 
 leaf_area$Species <- str_extract( leaf_area$Slice, '^[A-Za-z]{2,}[1-9]?(?=[\\-_]{1})')
@@ -69,7 +73,8 @@ leaf_area <-
   rename(plant_number = plant, leaf_number= leaf) %>% 
   mutate( date = lubridate::as_date( date )) %>% 
   mutate( plant_number = str_extract(plant_number, '\\d+'), 
-          leaf_number = str_extract(leaf_number, '\\d+'))
+          leaf_number = str_extract(leaf_number, '\\d+')) %>% 
+  mutate( plot = 'non_plot')
 
 
 leaf_area %>% 
