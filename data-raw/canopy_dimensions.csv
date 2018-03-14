@@ -1,87 +1,221 @@
-species,plant_number,width,length,height
-microseris,1,2,2,18.5
-microseris,2,3,4.1,20.5
-microseris,3,3,2.5,14.6
-microseris,4,9.5,5.2,22.2
-microseris,5,8.5,6,28.9
-microseris,6,6.5,5.5,26.4
-microseris,7,5,2,23.4
-microseris,8,5.2,3,16.6
-LASE,2,16,12,27
-lase,3,22,5,23
-lase,8,17,8,18
-lase,5,22,4,23
-LASE,1,13,2,20
-LASE,4,23,15,25
-LASE,6,17,11,20
-LASE,7,10,4,14
-AVFA,1,8,8,58
-AVFA,2,7,7,50
-AVFA,4,21,17,66
-AVFA,3,26,13,69
-AVFA,5,19,15,50
-AVFA,6,13,20,52
-AVFA,7,25,17,70
-AVFA,8,20,13,59
-LOMU,2,19,16,22
-LOMU,1,25,25,30
-LOMU,3,20,9,25
-LOMU,4,22,13,25
-LOMU,5,27,24,52
-LOMU,6,14,19,33
-LOMU,7,19,23,33
-LOMU,8,10,8,38
-Carduus pycnocephala,1,16,14,46
-Carduus pycnocephala,2,20,22,67
-Carduus pycnocephala,3,30,19,87
-Carduus pycnocephala,4,24,14,61
-Carduus pycnocephala,5,23,12,61
-Carduus pycnocephala,5.1,19,20,58
-Carduus pycnocephala,6,24,18,65
-Carduus pycnocephala,7,20,18,56
-Carduus pycnocephala,8,20,23,94
-NAPU,1,19,16,81
-NAPU,2,21,15,87
-NAPU,4,26,17,71
-NAPU,5,16,11,49
-NAPU,3,24,21,89
-NAPU,6,40,22,83
-NAPU,7,22,21,93
-NAPU,8,10,34,85
-Chlorogallum pomeridianum,1,44,27,28
-Chlorogallum pomeridianum,2,30,9,40
-Chlorogallum pomeridianum,3,22,10,25
-Chlorogallum pomeridianum,4,24,27,24
-Chlorogallum pomeridianum,5,8,30,29
-Chlorogallum pomeridianum,6,50,73,24
-Chlorogallum pomeridianum,7,23,16,31
-Chlorogallum pomeridianum,8,40,30,62
-Calystegia collina,1,18,16,5
-Calystegia collina,2,20,19,7
-Calystegia collina,3,10,14,6
-Calystegia collina,4,12,12,5
-Calystegia collina,5,12,12,5
-Calystegia collina,6,16,13,9
-Calystegia collina,7,19,8,11
-Calystegia collina,8,11,11,6
-Croton setigerus,1,9,9,2
-Croton setigerus,2,5,5,2
-Croton setigerus,3,14,12,5
-Croton setigerus,4,12,11,5
-Croton setigerus,5,6,5,2
-Croton setigerus,6,8,7,2
+species,plant_number,height,width,length
+microseris,1,18.5,2,2
+microseris,2,20.5,3,4.1
+microseris,3,14.6,3,2.5
+microseris,4,22.2,9.5,5.2
+microseris,5,28.9,8.5,6
+microseris,6,26.4,6.5,5.5
+microseris,7,23.4,5,2
+microseris,8,16.6,5.2,3
+LASE,2,27,16,12
+LASE,3,23,22,5
+LASE,8,18,17,8
+LASE,5,23,22,4
+LASE,1,20,13,2
+LASE,4,25,23,15
+LASE,6,20,17,11
+LASE,7,14,10,4
+AVFA,1,58,8,8
+AVFA,2,50,7,7
+AVFA,4,66,21,17
+AVFA,3,69,26,13
+AVFA,5,50,19,15
+AVFA,6,52,13,20
+AVFA,7,70,25,17
+AVFA,8,59,20,13
+LOMU,2,22,19,16
+LOMU,1,30,25,25
+LOMU,3,25,20,9
+LOMU,4,25,22,13
+LOMU,5,52,27,24
+LOMU,6,33,14,19
+LOMU,7,33,19,23
+LOMU,8,38,10,8
+Carduus pycnocephala,1,46,16,14
+Carduus pycnocephala,2,67,20,22
+Carduus pycnocephala,3,87,30,19
+Carduus pycnocephala,4,61,24,14
+Carduus pycnocephala,5,61,23,12
+Carduus pycnocephala,5.1,58,19,20
+Carduus pycnocephala,6,65,24,18
+Carduus pycnocephala,7,56,20,18
+Carduus pycnocephala,8,94,20,23
+NAPU,1,81,19,16
+NAPU,2,87,21,15
+NAPU,4,71,26,17
+NAPU,5,49,16,11
+NAPU,3,89,24,21
+NAPU,6,83,40,22
+NAPU,7,93,22,21
+NAPU,8,85,10,34
+Chlorogallum pomeridianum,1,28,44,27
+Chlorogallum pomeridianum,2,40,30,9
+Chlorogallum pomeridianum,3,25,22,10
+Chlorogallum pomeridianum,4,24,24,27
+Chlorogallum pomeridianum,5,29,8,30
+Chlorogallum pomeridianum,6,24,50,73
+Chlorogallum pomeridianum,7,31,23,16
+Chlorogallum pomeridianum,8,62,40,30
+Calystegia collina,1,5,18,16
+Calystegia collina,2,7,20,19
+Calystegia collina,3,6,10,14
+Calystegia collina,4,5,12,12
+Calystegia collina,5,5,12,12
+Calystegia collina,6,9,16,13
+Calystegia collina,7,11,19,8
+Calystegia collina,8,6,11,11
+Croton setigerus,1,2,9,9
+Croton setigerus,2,2,5,5
+Croton setigerus,3,5,14,12
+Croton setigerus,4,5,12,11
+Croton setigerus,5,2,6,5
+Croton setigerus,6,2,8,7
 Croton setigerus,7,6,6,6
-Croton setigerus,8,7,7,3
-Lagophylla ramosissima,1,5,7,26
-Lagophylla ramosissima,2,7,7,25
-Lagophylla ramosissima,3,6,5,25
-Lagophylla ramosissima,4,4,3,21
-Lagophylla ramosissima,5,7,5,22
-Lagophylla ramosissima,6,8,7,33
-Lagophylla ramosissima,7,4,5,27
-Lagophylla ramosissima,8,4,4,20
-SIGA,1,10,5,25
-SIGA,5,13,9,37
-SIGA,2,5,16,38
-SIGA,3,28,36,42
-SIGA,4,25,27,41
+Croton setigerus,8,3,7,7
+Lagophylla ramosissima,1,26,5,7
+Lagophylla ramosissima,2,25,7,7
+Lagophylla ramosissima,3,25,6,5
+Lagophylla ramosissima,4,21,4,3
+Lagophylla ramosissima,5,22,7,5
+Lagophylla ramosissima,6,33,8,7
+Lagophylla ramosissima,7,27,4,5
+Lagophylla ramosissima,8,20,4,4
+SIGA,1,25,10,5
+SIGA,5,37,13,9
+SIGA,2,38,5,16
+SIGA,3,42,28,36
+SIGA,4,41,25,27
+SIGA,6,43,20,10
+SIGA,7,38,45,42
+SIGA,8,19,3,3
+CHPA ,1,10,23,26.5
+CHPA ,2,18,30,24
+CHPA ,3,19,17,8
+CHPA ,4,16,9,7
+CHPA ,5,12,8,8
+CHPA ,6,10,14,14
+CHPA ,7,6,7,6
+CHPA ,8,9,9,8
+AVBA,1,97,10,8
+AVBA,2,77,16,15
+AVBA,3,60,8,7
+AVBA,4,86,5,5
+AVBA,5,82,6,12
+AVBA,6,44,17,9
+AVBA,7,82,13,11
+AVBA,8,99,17,7
+BOIN,1,,46,9
+BOIN,2,,49,11
+BOIN,3,,53,51
+BOIN,4,,50,26
+BOIN,5,,54,30
+BOIN,6,,40,32
+BOIN,7,,62,23
+BOIN,8,,66,19
+BRDI,1,63,19,8
+BRDI,2,62,12,12
+BRDI,3,69,30,24
+BRDI,4,53,30,15
+BRDI,5,68,36,15
+BRDI,6,61,20,6
+BRDI,7,73,38,15
+BRDI,8,79,37,18
+GAAP,1,,71,34
+GAAP,2,,69,12
+GAAP,3,,43,7
+GAAP,4,,39,8
+GAAP,5,,23,5
+GAAP,6,,21,5
+TOAR,1,45,23,8
+TOAR,2,46,21,11
+TOAR,3,44,34,30
+TOAR,4,48,28,7
+TOAR,5,41,30,20
+TOAR,6,46,24,14
+TOAR,7,62,32,25
+TOAR,8,62,35,12
+TRAL,1,8,26,25
+TRAL,2,15,8,5
+TRAL,3,18,2,2
+TRAL,4,29,23,9
+TRAL,5,23,3,7
+TRAL,6,22,3,2
+TRAL,7,23,3,3
+TRAL,8,11,17,14
+Leptosiphon,1,11,4,1
+Leptosiphon,2,13,3,3
+Leptosiphon,3,10,1,1
+Leptosiphon,4,12,2,2
+Leptosiphon,5,12,2,2
+Leptosiphon,6,115,3,3
+Leptosiphon,7,18,3,2
+Leptosiphon,8,13,1,1
+Lotus Strigosus ,1,6,11,4
+Lotus Strigosus ,2,5,10,3
+Lotus Strigosus ,3,8,9,8
+Lotus Strigosus ,4,8,12,8
+Lotus Strigosus ,5,3,8,5
+Lotus Strigosus ,6,5,12,10
+Lotus Strigosus ,7,7,7,4
+Lotus Strigosus ,8,6,11,9
+Lupinus bicolor,1,18,8,9
+Lupinus bicolor,2,19,10,6
+Lupinus bicolor,3,20,4,7
+Lupinus bicolor,4,18,7,4
+Lupinus bicolor,5,15,8,3
+Lupinus bicolor,6,19,4,11
+Lupinus bicolor,7,12,3,4
+Lupinus bicolor,8,14,8,3
+Viola Pendaneulata ,1,19,13,9
+Viola Pendaneulata ,2,12,20,10
+Viola Pendaneulata ,3,22,8,9
+Viola Pendaneulata ,4,10,36,20
+Viola Pendaneulata ,5,12,7,3
+Viola Pendaneulata ,6,17,12,6
+Viola Pendaneulata ,7,9,9,9
+Viola Pendaneulata ,8,23,17,14
+Erodium moschatum ,1,16,14,9
+Erodium moschatum ,2,13,15,15
+Erodium moschatum ,3,11,6,4
+Erodium moschatum ,4,18,15,15
+Erodium moschatum ,5,9,6,7
+Erodium moschatum ,6,21,11,9
+Erodium moschatum ,7,17,11,5
+Erodium moschatum ,8,12,10,7
+Vulpia myuros,5,32,7,7
+Vulpia myuros,4,38,11,8
+Vulpia myuros,6,30,7,6
+Vulpia myuros,7,42,15,14
+Vulpia myuros,8,38,6,5
+Bromus hordaceous ,1,24,6,4
+Bromus hordaceous ,2,26,5,4
+Bromus hordaceous ,3,36,5,3
+Bromus hordaceous ,4,20,14,11
+Bromus hordaceous ,5,2,7,6
+Bromus hordaceous ,6,52,12,10
+Bromus hordaceous ,7,41,11,6
+Bromus hordaceous ,8,30,5,5
+Anagallis arineusis,1,8,6,2
+Anagallis arineusis,2,6,5,4
+Anagallis arineusis,3,11,7,10
+Anagallis arineusis,4,7,7,6
+Anagallis arineusis,5,4,6,6
+Anagallis arineusis,6,7,5,6
+Anagallis arineusis,7,10,6,4
+Anagallis arineusis,8,5,6,4
+AGHE2,1,10,6,3
+AGHE2,2,20,5.5,4.5
+AGHE2,3,15,11,6
+AGHE2,4,18,6,4
+AGHE2,5,20,6,6
+AGHE2,6,20,8,6
+AGHE2,7,23,6,5
+AGHE2,8,22,7,6.5
+ACMO,1,14,5,5
+ACMO,2,22,8,6
+ACMO,3,25,4,4
+ACMO,4,27,8,6
+ACMO,5,23,5,4
+ACMO,6,23,5,4
+ACMO,7,15,4,4
+ACMO,8,17,3,4
