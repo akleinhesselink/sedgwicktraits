@@ -1,16 +1,19 @@
 rm(list =ls())
 library(tidyverse)
 library(lubridate)
+library(sedgwickspecies)
 
+outfile <- 'data-raw/clean_phenology.csv'
+
+alias <- read_csv('data-raw/alias.csv')
 pheno <- read_csv('data-raw/phenology_data.csv')
+tapioca <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 
 pheno$date <- as.Date(pheno$date, format = '%m/%d/%y')
 
 pheno$date <- as_date(pheno$date)
 
 pheno$woy <- as.numeric(strftime(pheno$date, '%V'))
-
-pheno %>% head
 
 pheno <- 
   pheno %>% 
@@ -79,13 +82,11 @@ pheno_means %>%
   facet_wrap( ~ Species ) + 
   scale_color_manual(values = c(1, 2, 4))
 
-
 fr50 %>% 
   mutate( species_lab = factor( Species, levels = unique(Species[order(fr50, Species)]), ordered = T)) %>% 
   ggplot(aes(x = species_lab, y = fr50)) + 
   geom_point() + 
   coord_flip()  
-
 
 fl50 %>% 
   mutate( species_lab = factor( Species, levels = unique(Species[order(fl50, Species)]), ordered = T)) %>% 
@@ -95,6 +96,31 @@ fl50 %>%
 
 fr50 <- 
   fr50 %>% 
-  mutate( doy_fr_50 = fr50*7 )
+  mutate( doy_fr_50 = round( fr50*7) )
 
-write_csv(fr50 %>% select(Species, doy_fr_50)  , 'data-raw/fruiting_time.csv')
+fr50 <- 
+  left_join(fr50, sedgwick_plants %>% select(calflora_binomial, standard_binomial, USDA_symbol), 
+          by = c('Species' = 'standard_binomial'))  %>% 
+  select( Species, calflora_binomial, USDA_symbol, doy_fr_50) %>% 
+  distinct() %>% 
+  rename ('phenology (DOY 50% fruit)' = doy_fr_50) %>% 
+  mutate( dataset = '2017')
+
+tapioca <- 
+  tapioca %>% 
+  left_join(alias, by = c('species' = 'alias')) %>% 
+  mutate( dataset = 'tapioca') %>% 
+  select( USDA_symbol, `phenology (corrected May 2016- frame shift error)`, dataset) %>% 
+  rename ('phenology (DOY 50% fruit)' = `phenology (corrected May 2016- frame shift error)`) 
+  
+average_phenology <- 
+  bind_rows(fr50, tapioca) %>%   
+  select( USDA_symbol, `phenology (DOY 50% fruit)`, dataset)
+
+average_phenology %>% 
+  mutate( USDA_symbol = factor( USDA_symbol, levels = unique(USDA_symbol[order(`phenology (DOY 50% fruit)`)]), ordered = T)) %>% 
+  ggplot(aes(x = USDA_symbol, y = `phenology (DOY 50% fruit)`, color = dataset)) + 
+  geom_point() + 
+  coord_flip()  
+
+write_csv(average_phenology, outfile)
