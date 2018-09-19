@@ -216,7 +216,7 @@ sequence,plot,species,plant_number,type,tissue_type,aboveground_biomass_g,date_c
 ,non_plot,AVBA,1,AGB,,2.2068,,
 ,non_plot,AVBA,2,AGB,,2.9416,,
 ,non_plot,AVBA,3,AGB,,0.877,,
-,non_plot,AVBA,1,AGB,leaves,0.0074,,
+,non_plot,BOIN,1,AGB,leaves,0.0074,,
 ,non_plot,AVBA,3,AGB,leaves,0.0949,,
 ,non_plot,AVBA,3,AGB,,0.505,,
 ,non_plot,AVBA,5,AGB,,1.7422,,
