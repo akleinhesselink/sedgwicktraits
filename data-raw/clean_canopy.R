@@ -1,8 +1,9 @@
 rm(list = ls())
 library(tidyverse)
 library(sedgwickspecies)
+library(stringr)
 
-outfile <- 'data-raw/clean_canopy.R'
+outfile <- 'data-raw/clean_canopy.csv'
 
 alias <- read_csv('data-raw/alias.csv')
 canopy <- read_csv('data-raw/canopy_dimensions.csv')
@@ -92,10 +93,31 @@ canopy_stats %>%
   geom_point() + 
   facet_wrap(~USDA_symbol, scales = 'free')
 
+
 canopy_stats <- 
   canopy_stats %>% 
-  mutate( projected_area = pi*(1/4*width*length) ) %>% 
-  select( USDA_symbol, plant_number, height, projected_area, canopy_LA, canopy_LA_by_weight, total) %>% 
-  rename( 'total_agb_g' = total)
+  mutate( projected_area = pi*(1/2*width*1/2*length) ) %>% 
+  mutate( relative_spread = ((width + length)/2)/height ) %>% 
+  rename( 'total_agb_g' = total) %>% 
+  mutate( total_LA = ifelse( is.na(canopy_LA), canopy_LA_by_weight, canopy_LA)) %>% 
+  mutate( LAI = total_LA/projected_area, 
+          LAR = total_LA/total_agb_g ) %>% 
+  select( USDA_symbol, plant_number, height, LAI, LAR, relative_spread)
 
 
+canopy_stats %>% 
+  gather( metric, value, height:relative_spread) %>% 
+  ggplot( aes( x = USDA_symbol, y = value )) + 
+  geom_boxplot() + 
+  geom_point(alpha = 0.3) + 
+  facet_wrap( ~ metric, scales = 'free') + 
+  coord_flip()
+
+mean_canopy_traits <- 
+  canopy_stats %>% 
+  gather( metric, value, height:relative_spread) %>% 
+  group_by( USDA_symbol, metric) %>% 
+  summarise( value = mean(value, na.rm = T)) %>% 
+  spread( metric, value ) 
+
+write_csv(mean_canopy_traits, outfile)
