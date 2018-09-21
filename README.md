@@ -1,14 +1,10 @@
-# 2017_Sedgwick_Traits
-Data and processing scripts for plant trait data from Sedgwick collected by the Kraft Lab in the spring and summer of 2017
+## sedgwicktraits
+Species average traits and raw data for annual plants species from Sedgwick Reserve. Data collected by the Kraft Lab in the spring and summer of 2017. 
 
 ## data-raw folder 
-Contains the raw data
+Contains the raw data and the data processing scripts
 
 ## data folder 
-Contains the cleaned data 
+Contains the processed data 
 
-## allocation data
-Harvested biomass of plant parts for eight key species. 
 
-## Sedgwick_Taxonomy
-plant names standardized according to the Sedgwick Taxonomy project
