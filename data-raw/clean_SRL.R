@@ -2,29 +2,27 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/specific_root_length.csv'
+outfile <- 'data-raw/clean_SRL.csv'
 
-my_codes <- read.csv('data-raw/my_codes.csv')
+alias <- read.csv('data-raw/alias.csv')
 weights <- read.csv('data-raw/root_data/root_weights.csv')
 lengths <- read.csv('data-raw/root_data/cleaned_root_lengths.csv')
 
-my_codes <- 
-  my_codes %>% 
-  select(species, USDA_symbol)
+alias <- 
+  alias %>% 
+  select(alias, USDA_symbol)
 
 lengths$datetime <- as.POSIXct(lengths$datetime)
 
 weights$plot[is.na(weights$plot)] <- 'non_plot'
 
+weights %>% distinct(species)
+
 weights <- 
   weights %>% 
-  mutate( species = str_trim(species)) %>% 
-  left_join(my_codes, by = 'species')
+  mutate( alias = toupper(str_trim(species))) %>% 
+  left_join(alias, by = 'alias')
 
-lengths <- 
-  lengths %>% 
-  mutate( species = str_trim(species)) %>% 
-  left_join(my_codes, by = 'species')
 
 root_data <- 
   lengths %>% 
@@ -32,8 +30,8 @@ root_data <-
 
 root_data <- 
   root_data %>% 
-  rename( 'species' = species.x) %>% 
   mutate(SRL = total_length_cm/dry_weight) %>% 
   select(species, USDA_symbol, plot, plant_number, SRL)
 
-write_csv(root_data, outfile)
+root_data %>% 
+  write_csv(outfile)

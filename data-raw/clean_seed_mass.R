@@ -6,7 +6,7 @@ outfile <- 'data-raw/clean_seed_mass.csv'
 alias <- read_csv('data-raw/alias.csv')
 old_mass <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 new_mass <- read_csv('data-raw/seed_weights.csv')
-molignari <- read_csv('data-raw/molignari_traits_clean.csv')
+molinari <- read_csv('data-raw/old-data/molinari.csv')
 
 old_mass <- 
   old_mass %>% 
@@ -14,7 +14,7 @@ old_mass <-
   rename( 'seed_mass' = `seed_mass(g)`, 'alias' = species) %>%
   left_join( alias ) %>% 
   select( USDA_symbol, seed_mass) %>% 
-  mutate( dataset = 'tapioca') %>% 
+  mutate( seed_mass_data_source = 'TAPIOCA') %>% 
   distinct()
 
 new_mass <- 
@@ -25,15 +25,38 @@ new_mass <-
   rename( 'alias' = species) %>% 
   left_join( alias)  %>%
   select(USDA_symbol, seed_mass) %>% 
-  mutate( dataset = '2017')
+  mutate( seed_mass_data_source = '2017')
 
 
-molignari <- 
-  molignari %>% 
+molinari <- 
+  molinari %>% 
   select( USDA_symbol, seed_mass) %>% 
-  mutate( dataset = 'molignari') %>% 
+  mutate( seed_mass_data_source = 'MOLINARI') %>% 
   filter( complete.cases(.)) 
 
+avba_seed <- 
+  BIEN::BIEN_trait_traitbyspecies(species = 'Avena barbata', trait = 'seed mass') %>% 
+  distinct(scrubbed_species_binomial, trait_name, trait_value, unit) %>%
+  group_by(scrubbed_species_binomial, trait_name, unit) %>% 
+  summarise( seed_mass = mean(as.numeric(trait_value))/1000) %>% 
+  mutate( USDA_symbol = 'AVBA', seed_mass_data_source = 'BIEN') %>% 
+  ungroup() %>% 
+  select(USDA_symbol, seed_mass, seed_mass_data_source)
 
-write_csv(rbind(old_mass, new_mass, molignari), outfile)  
+CACO35_seed <- 
+  BIEN::BIEN_trait_traitbygenus(genus = 'Calystegia', trait = 'seed mass') %>% 
+  distinct(scrubbed_species_binomial, trait_name, trait_value, unit) %>% 
+  mutate( genus = 'Calystegia' ) %>% 
+  group_by( genus, trait_name, unit) %>% 
+  summarise( seed_mass = mean(as.numeric(trait_value))/1000) %>% 
+  mutate( USDA_symbol = 'CACO35', seed_mass_data_source = 'BIEN(avg. of 6 Calystegia sp.)') %>% 
+  ungroup() %>% 
+  select( USDA_symbol, seed_mass, seed_mass_data_source) 
+
+new_mass <- rbind( avba_seed, CACO35_seed, new_mass )
+
+
+write_csv( rbind(old_mass, new_mass, molinari), outfile)
+
+
 

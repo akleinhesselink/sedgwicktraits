@@ -19,6 +19,8 @@ avg_SLA <-
   group_by( USDA_symbol, petiole) %>% 
   summarise( m_SLA = mean(SLA) ) 
 
+
+
 leaf_area <-
   leaf_area %>% 
   filter( plot == 'non_plot') %>% 
@@ -38,6 +40,7 @@ leaf_area <-
   mutate( total  = `1` + `2` + `3` + `ALL`) %>% 
   group_by( USDA_symbol, plant_number, scan_date) %>% 
   summarise( canopy_LA = sum(total), complete = all(complete) )
+
 
 agb <- 
   agb %>%
@@ -63,6 +66,7 @@ agb <-
   mutate( tissue_type = ifelse( is.na(tissue_type), 'unclassified', tissue_type)) %>% 
   spread(tissue_type, mass_g, fill = 0) %>% 
   mutate( total = leaves + stem + unclassified)
+
 
 canopy <- 
   canopy %>%  

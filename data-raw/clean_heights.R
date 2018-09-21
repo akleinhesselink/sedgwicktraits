@@ -17,24 +17,25 @@ old_heights <-
   left_join( alias ) %>% 
   select( USDA_symbol, max_height) %>% 
   distinct() %>% 
-  mutate( dataset = 'tapioca')
+  mutate( max_height_data_source = 'TAPIOCA')
 
 new_heights <- 
   new_heights %>% 
   group_by( USDA_symbol) %>% 
   summarise( max_height = quantile(height, q_height)) %>% 
-  mutate( dataset = '2017')
+  mutate( max_height_data_source = '2017')
 
 molinari <- 
   molinari %>%
   select( USDA_symbol, max_height) %>% 
-  mutate( dataset = 'molinari')
+  mutate( max_height_data_source = 'MOLINARI') %>% 
+  filter( complete.cases(.))
 
 all_heights <- rbind(old_heights, new_heights, molinari) 
 
 all_heights <- 
   all_heights %>% 
-  arrange( USDA_symbol, dataset ) %>% 
+  arrange( USDA_symbol, max_height_data_source ) %>% 
   group_by(USDA_symbol) %>% 
   filter( row_number() == 1)
 

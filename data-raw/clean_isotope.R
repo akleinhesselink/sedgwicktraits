@@ -1,7 +1,7 @@
 rm(list = ls())
 library(tidyverse)
 
-outfile <- 'data-raw/clean_isotope_data.csv'
+outfile <- 'data-raw/clean_isotopes.csv'
 isotopes <- read_csv('data-raw/leaf_isotopes_2016.csv')
 alias <- read_csv('data-raw/alias.csv')
 old_traits <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
@@ -30,7 +30,7 @@ old_isotopes <-
   old_traits %>% 
   left_join(alias, by = c('species' = 'alias')) %>%
   select( USDA_symbol, foliar_N, CN_ratio, d15N, d13C) %>%
-  mutate( dataset = 'tapioca')
+  mutate( dataset = 'TAPIOCA')
   
 isotopes <- isotopes %>% 
   select(USDA_symbol, foliar_N, CN_ratio, d15N, d13C) %>% 
@@ -75,4 +75,7 @@ isotope_avgs %>%
   coord_flip() 
 
 
-write_csv(isotope_avgs, outfile)
+
+write_csv(isotope_avgs %>% 
+            filter( dataset == '2017'), outfile)
+
