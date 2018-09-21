@@ -20,12 +20,15 @@
 #'   \item{max_height(cm2)}{95 percentile of heights of over 40 measured individual plants}
 #'   \item{SRL(m/g)}{specific root length in meters per gram}
 #'   \item{relative_spread}{average plant diameter when viewed from above divided by plant height}
-#'   \item{phenology (DOY 50% fruit)}{day at which approximately 50% of individual plants begin fruiting in the field}
+#'   \item{phenology (DOY 50\% fruit)}{day at which approximately 50\% of individual plants begin fruiting in the field}
 #'   \item{foliar_N}{leaf Nitrogen as a percent of total leaf matter}
 #'   \item{CN_ratio}{ratio of leaf carbon to leaf nitrogen}
 #'   \item{d13C}{relative enrichment of leaf carbon with carbon-13 isotopes}
 #'   \item{d15N}{relative enrichment of leaf nitrogen with nitrogen-15 isotopes}
-#'   \item{notes}{}
+#'   \item{notes}{notes on data collection}
+#'   \item{seed_mass_data_source}{origin of the seed mass data}
+#'   \item{max_height_data_source}{origin of the maximum plant height data}
+#'   \item{dataset}{whether the species data was collected in 2017 or for the earlier TAPIOCA project}
 #'   \item{seed_size (mm3)}{seed volume in mm3}
 #'   \item{rooting_depth (oscar)}{average maximum rooting depth}
 #'   \item{leaf_ph}{leaf ph}
