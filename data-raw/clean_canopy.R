@@ -8,7 +8,7 @@ outfile <- 'data-raw/clean_canopy.csv'
 alias <- read_csv('data-raw/alias.csv')
 canopy <- read_csv('data-raw/canopy_dimensions.csv')
 agb <- read_csv('data-raw/aboveground_biomass_weights.csv')
-leaf_traits <- read_csv('data-raw/leaf_traits.csv')
+leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
 
 leaf_area <- read_csv('data-raw/leaf_area.csv')
 

@@ -2,6 +2,13 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
+# ------------------------------------------------------ 
+root_files <- dir('data-raw/root_data', 'root-lengths', full.names = T)
+out_file <- 'data-raw/root_data/clean_root_lengths.csv'
+alias <- read_csv('data-raw/alias.csv')
+# ------------------------------------------------------
+
+
 # function definition ---------------------------------------------------------------------- # 
 process_root_data <- function(file_path) { 
   require(dplyr)
@@ -19,10 +26,6 @@ process_root_data <- function(file_path) {
                                       TRUE, FALSE))
 }
 
-# ------------------------------------------------------ 
-root_files <- dir('data-raw/root_data', 'root-lengths', full.names = T)
-out_file <- 'data-raw/root_data/cleaned_root_lengths.csv'
-# ------------------------------------------------------
 
 root_data <- lapply( root_files, process_root_data )
 root_data <- do.call(rbind, root_data)
@@ -37,6 +40,12 @@ root_data$plot[is.na(root_data$plot)] <- 'non_plot'
 root_data$species <- toupper(root_data$species)
 root_data$datetime <- as.POSIXct(as.character(root_data$timestamp), format = '%m/%d/%Y %H:%M:%S')
 
-out <- root_data %>% select(plot, species, plant_number, total_length_cm, id, datetime)
+out <- root_data %>% 
+  select(plot, species, plant_number, total_length_cm, id, datetime)
+
+out <- 
+  out %>% 
+  rename('alias' = species) %>% 
+  left_join( alias, by = 'alias') 
 
 write.csv(out, out_file , row.names = F)

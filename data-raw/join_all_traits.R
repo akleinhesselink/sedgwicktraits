@@ -6,12 +6,12 @@ library(ggplot2)
 outfile <- 'data-raw/all_2017_traits.csv'
 
 canopy <- read_csv('data-raw/clean_canopy.csv')
-isotopes <- read_csv('data-raw/clean_isotope_data.csv')
+isotopes <- read_csv('data-raw/clean_isotopes.csv')
 heights <- read_csv('data-raw/clean_heights.csv')
 pheno <- read_csv('data-raw/clean_phenology.csv')
 seed_mass <- read_csv('data-raw/clean_seed_mass.csv')
-srl <- read_csv('data-raw/specific_root_length.csv')
-leaf_traits <- read_csv('data-raw/leaf_traits.csv')
+srl <- read_csv('data-raw/clean_SRL.csv')
+leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
 
 leaf_traits <- 
   leaf_traits %>% 
@@ -35,16 +35,19 @@ srl <-
 seed_mass <- 
   seed_mass %>% 
   group_by( USDA_symbol ) %>% 
-  arrange( USDA_symbol, dataset) %>% 
+  arrange( USDA_symbol, seed_mass_data_source) %>% 
   filter( row_number() == 1) %>% 
-  select(USDA_symbol, seed_mass)
+  select(USDA_symbol, seed_mass, seed_mass_data_source)
   
+
 pheno <- 
   pheno %>% 
   group_by(USDA_symbol) %>% 
   arrange( USDA_symbol, dataset) %>% 
   filter( row_number() == 1) %>% 
   select( USDA_symbol, `phenology (DOY 50% fruit)`)
+
+heights <- heights[ complete.cases(heights), ] 
 
 
 all_traits <- 
@@ -68,8 +71,7 @@ all_traits <-
           'seed_mass(g)' = seed_mass, 
           'max_height(cm)' = max_height, 
           'SRL(m/g)' = SRL, 
-          'relative_spread(lateral/height)' = relative_spread, 
-          'seed_mass_data_source' = dataset) 
+          'relative_spread(lateral/height)' = relative_spread) 
 
 
 all_traits %>% 
@@ -89,7 +91,8 @@ all_traits %>%
           d13C, 
           d15N, 
           notes, 
-          seed_mass_data_source) %>% 
+          seed_mass_data_source, 
+          max_height_data_source) %>% 
   write_csv(path = outfile )
 
 
