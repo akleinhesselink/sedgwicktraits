@@ -5,7 +5,8 @@ library(tidyverse)
 library(sedgwickspecies)
 
 outfile <- 'data-raw/leaf_area.csv'
-file_names <- dir(path = 'data-raw', pattern = '*.xls$', recursive = 'T', full.names = T) 
+
+file_names <- dir(path = 'data-raw/all-scans', pattern = '*.xls$', recursive = 'T', full.names = T) 
 alias <- read_csv('data-raw/alias.csv')
 
 files <- data.frame(file_name = file_names)

@@ -4,7 +4,6 @@ library(stringr)
 
 outfile <- 'data-raw/clean_leaf_traits.csv'
 
-
 dat <- read_csv('data-raw/2017-trait-measurements.csv')
 la_dat <- read_csv('data-raw/leaf_area.csv')
 focal_la_dat <- read_csv('data-raw/focal_leaf_areas.csv')
@@ -35,9 +34,6 @@ la_dat <-
   select( slice, plot, alias, USDA_symbol, plant_number, leaf_number, total_area, petiole, notes)
 
 la_dat <- rbind(la_dat, focal_la_dat)
-
-la_dat %>% 
-  filter( USDA_symbol ==  'THCU')
 
 dat <- 
   dat %>% 

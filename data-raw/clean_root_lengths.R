@@ -3,8 +3,9 @@ library(tidyverse)
 library(stringr)
 
 # ------------------------------------------------------ 
-root_files <- dir('data-raw/root_data', 'root-lengths', full.names = T)
 out_file <- 'data-raw/root_data/clean_root_lengths.csv'
+
+root_files <- dir('data-raw/root_data', 'root-lengths', full.names = T)
 alias <- read_csv('data-raw/alias.csv')
 # ------------------------------------------------------
 

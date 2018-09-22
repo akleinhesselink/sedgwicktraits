@@ -6,7 +6,7 @@ outfile <- 'data-raw/clean_SRL.csv'
 
 alias <- read.csv('data-raw/alias.csv')
 weights <- read.csv('data-raw/root_data/root_weights.csv')
-lengths <- read.csv('data-raw/root_data/cleaned_root_lengths.csv')
+lengths <- read.csv('data-raw/root_data/clean_root_lengths.csv')
 
 alias <- 
   alias %>% 
