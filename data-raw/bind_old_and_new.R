@@ -2,6 +2,7 @@ rm(list = ls())
 
 library(tidyverse)
 library(ggplot2)
+library(sedgwickspecies)
 
 outfile <- 'data/sedgwick_traits.Rdata'
 
@@ -26,6 +27,13 @@ old <-
 sedgwicktraits <- 
   bind_rows(new, old) %>% 
   select( -alias,   - `phenology (corrected May 2016- frame shift error)`)
+
+sedgwicktraits <- 
+  sedgwicktraits %>% 
+  left_join(sedgwick_plants, by = 'USDA_symbol') %>% 
+  select( calflora_binomial, `leaf_size(cm2)`:leaf_pH ) %>% 
+  rename( 'species' = calflora_binomial) %>%
+  distinct()
 
 devtools::use_data(sedgwicktraits, overwrite = T)
 

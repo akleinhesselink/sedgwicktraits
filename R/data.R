@@ -10,7 +10,7 @@
 #'
 #' @format A data frame with 59 rows and 22 variables:
 #' \describe{
-#'   \item{USDA_symbol}{USDA code for each species}
+#'   \item{species}{Latin species binomial for each species. Using the calflora taxonomy for species names.}
 #'   \item{leaf_size(cm2)}{average leaf area in cm}
 #'   \item{SLA (g/cm2)}{average specific leaf area in g per cm2}
 #'   \item{LDMC(mg/g)}{average leaf dry matter content in mg dry weight per g fresh weight}
