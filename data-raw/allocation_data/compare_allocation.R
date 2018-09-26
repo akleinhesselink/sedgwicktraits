@@ -3,15 +3,16 @@ rm(list = ls())
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(stringr)
 
 my_cols <- c('#a6cee3','#1f78b4','#b2df8a','#33a02c')
   
-ids <- read.csv('data/Allocation_Data/allocation_early_id_2017-02-24.csv')
+ids <- read.csv('data-raw/allocation_data/allocation_early_id_2017-02-24.csv')
 
-r1 <- read.csv('data/Allocation_Data/allocation_early_2017-03-01.csv')
-r2 <- read.csv('data/Allocation_Data/allocation_mid.csv')
-r3 <- read.csv('data/Allocation_Data/allocation_late.csv')
-r3_id <- read.csv('data/Allocation_Data/allocation_late_size.csv')
+r1 <- read.csv('data-raw/allocation_data/allocation_early_2017-03-01.csv')
+r2 <- read.csv('data-raw/allocation_data/allocation_mid.csv')
+r3 <- read.csv('data-raw/allocation_data/allocation_late.csv')
+r3_id <- read.csv('data-raw/allocation_data/allocation_late_size.csv')
 
 r1 <- r1 %>% left_join(ids, by = c('round', 'plant_id') )
 r3 <- left_join(r3, r3_id, by = c('round', 'species', 'plant_id'))
@@ -114,7 +115,6 @@ AGBfrac_model <- lm(AGBfrac ~ log(total_mass)*species, df )
 summary(AGBfrac_model)
 
 
-library(stringr)
 # round 1 pca 
 x <- df %>% filter(round == 1) %>% select(species,  r_frac, l_frac, s_frac, f_frac) 
 pca1 <- princomp( x[, 2:4])
