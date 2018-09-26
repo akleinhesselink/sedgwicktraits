@@ -58,8 +58,7 @@ all_traits <-
   left_join(pheno) %>% 
   left_join(srl) %>% 
   left_join(seed_mass)
-
-
+  
 all_traits <- 
   all_traits %>% 
   mutate( notes = ifelse( petiole, 'LA with petiole', '' )) %>% 

@@ -8,6 +8,7 @@ source( "data-raw/clean_canopy.R")
 source( "data-raw/clean_heights.R")
 source( "data-raw/clean_isotope.R")
 source( "data-raw/clean_phenology.R")
+source( "data-raw/avg_tlp.R")
 
 source('data-raw/combine_leaf_area_tables.R')
 source( "data-raw/clean_leaf_traits.R") 

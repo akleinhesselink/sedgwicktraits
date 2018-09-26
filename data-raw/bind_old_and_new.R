@@ -9,6 +9,7 @@ outfile <- 'data/sedgwick_traits.Rdata'
 new <- read_csv( 'data-raw/all_2017_traits.csv')
 old <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 alias <- read_csv('data-raw/alias.csv')
+avg_tlp <- read_csv('data-raw/avg_tlp.csv')
 
 new <- 
   new %>% 
@@ -22,18 +23,22 @@ old <-
           dataset = 'TAPIOCA', 
           max_height_data_source = 'TAPIOCA') %>% 
   rename( 'alias' = species) %>% 
-  left_join(alias) 
+  left_join(alias) %>% 
+  left_join(avg_tlp) %>% 
+  rename( 'turgor_loss_point(MPa)' = tlp )
 
 sedgwicktraits <- 
   bind_rows(new, old) %>% 
   select( -alias,   - `phenology (corrected May 2016- frame shift error)`)
 
+
 sedgwicktraits <- 
   sedgwicktraits %>% 
   left_join(sedgwick_plants, by = 'USDA_symbol') %>% 
-  select( calflora_binomial, `leaf_size(cm2)`:leaf_pH ) %>% 
+  select( calflora_binomial, `leaf_size(cm2)`:`turgor_loss_point(MPa)` ) %>% 
   rename( 'species' = calflora_binomial) %>%
   distinct()
+
 
 devtools::use_data(sedgwicktraits, overwrite = T)
 
