@@ -570,3 +570,13 @@ sequence,plot,species,plant_number,type,tissue_type,aboveground_biomass_g,date_c
 ,non_plot,THLA,7,AGB,stem,0.3101,,
 ,non_plot,THLA,8,AGB,leaves,0.01014,,
 ,non_plot,THLA,8,AGB,stem,0.08621,,
+,non_plot,CHPA,1,AGB,,0.6916,,1 of 2
+,non_plot,CHPA,1,AGB,,0.4524,,2 of 2
+,non_plot,CHPA,2,AGB,,0.4213,,1 of 2
+,non_plot,CHPA,2,AGB,,0.4779,,2 of 2
+,non_plot,CHPA,3,AGB,,0.2043,,
+,non_plot,CHPA,4,AGB,,0.4608,,
+,non_plot,CHPA,5,AGB,,0.5343,,
+,non_plot,CHPA,6,AGB,,0.7178,,
+,non_plot,CHPA,7,AGB,,0.1902,,
+,non_plot,CHPA,8,AGB,,0.4408,,
