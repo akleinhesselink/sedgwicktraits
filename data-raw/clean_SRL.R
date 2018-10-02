@@ -30,8 +30,8 @@ root_data <-
 
 root_data <- 
   root_data %>% 
-  mutate(SRL = total_length_cm/dry_weight) %>% 
-  select(species, USDA_symbol, plot, plant_number, SRL)
+  mutate(`SRL (m/g)` = total_length_cm/100/dry_weight) %>% 
+  select(species, USDA_symbol, plot, plant_number, `SRL (m/g)`)
 
 root_data %>% 
   write_csv(outfile)
