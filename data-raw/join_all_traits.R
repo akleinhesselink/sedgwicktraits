@@ -30,7 +30,7 @@ srl <-
   srl %>% 
   filter( plot == 'non_plot') %>% 
   group_by( USDA_symbol ) %>% 
-  summarise( SRL = mean(SRL, na.rm = T))
+  summarise( `SRL (m/g)` = mean(`SRL (m/g)`, na.rm = T))
 
 seed_mass <- 
   seed_mass %>% 
@@ -69,7 +69,7 @@ all_traits <-
           'LAR(cm2/g)' = LAR, 
           'seed_mass(g)' = seed_mass, 
           'max_height(cm)' = max_height, 
-          'SRL(m/g)' = SRL, 
+          'SRL(m/g)' = `SRL (m/g)`, 
           'relative_spread(lateral/height)' = relative_spread) 
 
 
