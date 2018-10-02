@@ -42,7 +42,13 @@ leaf_area <-
   leaf_area %>% 
   filter( !str_detect( Slice, 'avfa-p7-l3-\\d$'))
 
-# --------------------------------------------------------------------
+# remove slices with no area ------------------------------------------
+
+leaf_area <- 
+  leaf_area %>% 
+  filter( X.Area > 0 )
+
+# ---------------------------------------------------------------------
 
 leaf_area$Species <- str_extract( leaf_area$Slice, '^[A-Za-z]{2,}[1-9]?(?=[\\-_]{1})')
 leaf_area$plant <- tolower(str_extract( leaf_area$Slice, pattern = '[Pp][0-9][0-9]?'))
@@ -63,10 +69,7 @@ leaf_area <-
 leaf_area <- 
   leaf_area %>% 
   mutate( alias = toupper(alias)) %>% 
-  left_join( alias, by = 'alias') 
-
-leaf_area <- 
-  leaf_area %>% 
+  left_join( alias, by = 'alias') %>% 
   mutate( petiole = ifelse(notes == 'with_petiole', T, F))
 
 leaf_area <- 
@@ -76,7 +79,6 @@ leaf_area <-
   mutate( plant_number = str_extract(plant_number, '\\d+'), 
           leaf_number = str_extract(leaf_number, '\\d+')) %>% 
   mutate( plot = 'non_plot')
-
 
 leaf_area %>% 
   write_csv(outfile)

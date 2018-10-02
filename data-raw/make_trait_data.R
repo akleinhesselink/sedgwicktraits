@@ -4,14 +4,14 @@ rm(list = ls())
 # Output dataframe saved to data/sedgwicktraits.rdata
 
 source( "data-raw/clean_seed_mass.R"  )
+source('data-raw/combine_leaf_area_tables.R')
+source( "data-raw/clean_leaf_traits.R") 
+
 source( "data-raw/clean_canopy.R") 
 source( "data-raw/clean_heights.R")
 source( "data-raw/clean_isotope.R")
 source( "data-raw/clean_phenology.R")
 source( "data-raw/avg_tlp.R")
-
-source('data-raw/combine_leaf_area_tables.R')
-source( "data-raw/clean_leaf_traits.R") 
 
 source( "data-raw/clean_root_lengths.R")
 source( "data-raw/clean_SRL.R")

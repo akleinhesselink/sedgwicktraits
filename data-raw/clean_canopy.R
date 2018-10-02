@@ -19,28 +19,33 @@ avg_SLA <-
   group_by( USDA_symbol, petiole) %>% 
   summarise( m_SLA = mean(SLA) ) 
 
-
-
 leaf_area <-
   leaf_area %>% 
   filter( plot == 'non_plot') %>% 
   filter( total_area > 0) %>% 
-  select( slice, USDA_symbol, plant_number, leaf_number, total_area, scan_date, notes) %>%
-  mutate( leaf_number = ifelse(is.na(leaf_number), toupper(str_extract(slice, '(all)|(ALL)')), leaf_number)) %>% 
-  mutate( petiole_type = str_extract(notes, '.*petiole')) %>% 
-  filter( petiole_type != 'with_petiole' | is.na(petiole_type) ) %>% 
-  select( -petiole_type, -notes) %>% 
+  select( slice, USDA_symbol, plant_number, leaf_number, total_area, scan_date, petiole, notes) %>%
+  mutate( leaf_number = ifelse(is.na(leaf_number), toupper(str_extract(slice, '(all)|(ALL)')), leaf_number)) 
+
+leaf_area <- 
+  leaf_area %>% 
   mutate( tissue_type = NA) %>% 
   mutate( tissue_type = ifelse(str_detect(slice, 'bracts'), 'bracts', 'leaves')) %>%
-  group_by( USDA_symbol, plant_number, leaf_number, scan_date, tissue_type) %>% 
+  group_by( USDA_symbol, plant_number, leaf_number, scan_date, tissue_type, petiole) %>% 
   mutate( id = row_number())  %>% 
   select(-slice) %>% 
   spread( leaf_number, total_area, fill = 0) %>% 
   mutate( complete = ALL != 0 ) %>% 
   mutate( total  = `1` + `2` + `3` + `ALL`) %>% 
-  group_by( USDA_symbol, plant_number, scan_date) %>% 
-  summarise( canopy_LA = sum(total), complete = all(complete) )
+  group_by( USDA_symbol, plant_number, petiole, scan_date) %>% 
+  summarise( canopy_LA = sum(total), complete = all(complete) ) %>% 
+  filter( !petiole | (petiole & USDA_symbol %in% c('LUBI', 'ERMO7', 'LEBI4', 'VIPE3', 'GIOC')) )
 
+# drop ERMO7 and LUBI leaf area without petiole --------------- # 
+leaf_area <- 
+  leaf_area %>% 
+  filter( !(USDA_symbol == 'ERMO7' & !petiole) ) %>% 
+  filter( !(USDA_symbol == 'LUBI'  & !petiole) )
+#------------------------------------------------------ #
 
 agb <- 
   agb %>%
@@ -67,7 +72,6 @@ agb <-
   spread(tissue_type, mass_g, fill = 0) %>% 
   mutate( total = leaves + stem + unclassified)
 
-
 canopy <- 
   canopy %>%  
   rename( 'alias' = species) %>% 
@@ -85,18 +89,11 @@ canopy_stats <-
 
 canopy_stats <- 
   canopy_stats %>% 
-  left_join(avg_SLA %>% filter( !petiole), by = 'USDA_symbol') %>% 
-  select(USDA_symbol, plant_number, height:length, canopy_LA, complete, leaves, stem, unclassified, total, m_SLA) %>% 
+  left_join(avg_SLA, by = c('USDA_symbol', 'petiole')) %>% 
+  select(USDA_symbol, plant_number, petiole, height:length, canopy_LA, complete, leaves, stem, unclassified, total, m_SLA) %>% 
   mutate( canopy_LA_by_weight = m_SLA*leaves) %>%
   mutate( canopy_LA  = ifelse(complete, canopy_LA, NA)) %>% 
   mutate( canopy_LA_by_weight = ifelse( canopy_LA_by_weight == 0, NA, canopy_LA_by_weight))
-
-canopy_stats %>% 
-  mutate( canopy_LA_by_weight = ifelse(canopy_LA_by_weight == 0, NA, canopy_LA_by_weight)) %>% 
-  ggplot( aes( x = canopy_LA, y = canopy_LA_by_weight)) + 
-  geom_point() + 
-  facet_wrap(~USDA_symbol, scales = 'free')
-
 
 canopy_stats <- 
   canopy_stats %>% 
@@ -106,8 +103,7 @@ canopy_stats <-
   mutate( total_LA = ifelse( is.na(canopy_LA), canopy_LA_by_weight, canopy_LA)) %>% 
   mutate( LAI = total_LA/projected_area, 
           LAR = total_LA/total_agb_g ) %>% 
-  select( USDA_symbol, plant_number, height, LAI, LAR, relative_spread)
-
+  select( USDA_symbol, plant_number, petiole, height, LAI, LAR, relative_spread)
 
 canopy_stats %>% 
   gather( metric, value, height:relative_spread) %>% 
@@ -120,7 +116,7 @@ canopy_stats %>%
 mean_canopy_traits <- 
   canopy_stats %>% 
   gather( metric, value, height:relative_spread) %>% 
-  group_by( USDA_symbol, metric) %>% 
+  group_by( USDA_symbol, petiole, metric) %>% 
   summarise( value = mean(value, na.rm = T)) %>% 
   spread( metric, value ) 
 
