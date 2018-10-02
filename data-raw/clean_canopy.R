@@ -38,12 +38,21 @@ leaf_area <-
   mutate( total  = `1` + `2` + `3` + `ALL`) %>% 
   group_by( USDA_symbol, plant_number, petiole, scan_date) %>% 
   summarise( canopy_LA = sum(total), complete = all(complete) ) %>% 
-  filter( !petiole | (petiole & USDA_symbol %in% c('LUBI', 'ERMO7', 'LEBI4', 'VIPE3', 'GIOC')) )
+  filter( !petiole | (petiole & USDA_symbol %in% c('LUBI', 'LEBI4', 'VIPE3', 'GIOC')) )
 
-# drop ERMO7 and LUBI leaf area without petiole --------------- # 
+# read in areas without petiole 
+no_petiole <- read_csv('data-raw/canopy_LA_petiole_deleted.csv')
+
+no_petiole_species <- unique( no_petiole $USDA_symbol )
+
 leaf_area <- 
   leaf_area %>% 
-  filter( !(USDA_symbol == 'ERMO7' & !petiole) ) %>% 
+  filter( !(USDA_symbol %in% no_petiole_species ))  %>%
+  bind_rows(no_petiole)
+
+# drop LUBI leaf area without petiole --------------- # 
+leaf_area <- 
+  leaf_area %>% 
   filter( !(USDA_symbol == 'LUBI'  & !petiole) )
 #------------------------------------------------------ #
 
