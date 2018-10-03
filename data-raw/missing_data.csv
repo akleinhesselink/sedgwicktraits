@@ -1,0 +1,11 @@
+sequence,USDA_symbol,plot,plant_number,leaf_number,petiole,leaf_length_cm,leaf_width_cm,SLA,LDMC,LA
+70,GIOC,non_plot,8,1,TRUE,4.5,1.4,NA,NA,1.475
+71,GIOC,non_plot,8,2,TRUE,4.2,1.1,NA,NA,1.043
+72,GIOC,non_plot,8,3,TRUE,4.3,1.1,NA,NA,1.047
+246,FEMY2,non_plot,2,3,FALSE,2.9,0.2,NA,NA,0.283
+472,FEMY2,non_plot,6,1,FALSE,2.5,0.2,NA,NA,0.27
+474,FEMY2,non_plot,6,3,FALSE,3.2,0.2,NA,NA,0.381
+3124,DICA14,non_plot,1,1,FALSE,NA,NA,NA,NA,NA
+3125,DICA14,non_plot,1,2,FALSE,NA,NA,NA,NA,NA
+3126,DICA14,non_plot,2,1,FALSE,NA,NA,NA,NA,NA
+3127,DICA14,non_plot,3,1,FALSE,NA,NA,NA,NA,NA
