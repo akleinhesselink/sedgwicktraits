@@ -40,5 +40,5 @@ sedgwicktraits <-
   distinct()
 
 
-devtools::use_data(sedgwicktraits, overwrite = T)
+usethis::use_data(sedgwicktraits, overwrite = T)
 

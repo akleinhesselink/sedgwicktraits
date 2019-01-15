@@ -15,7 +15,7 @@ leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
 
 leaf_traits <- 
   leaf_traits %>% 
-  filter( plot == 'non_plot') %>% 
+  filter( plot == 'non_plot' | USDA_symbol %in% c('BRMA3', 'HOMU', 'FEMI2', 'MICA', 'CHGL')) %>% 
   filter( !censor) %>% 
   group_by( USDA_symbol, petiole ) %>% 
   summarise( SLA = mean(SLA, na.rm = T), LDMC = mean(LDMC, na.rm = T), LA = mean(LA, na.rm = T), dry_mass_g = mean(dry_mass_g, na.rm = T))
@@ -28,7 +28,7 @@ leaf_traits <-
 
 srl <- 
   srl %>% 
-  filter( plot == 'non_plot') %>% 
+  filter( plot == 'non_plot' | USDA_symbol %in% c('BRMA3', 'HOMU', 'FEMI2', 'MICA', 'CHGL')) %>% 
   group_by( USDA_symbol ) %>% 
   summarise( `SRL (m/g)` = mean(`SRL (m/g)`, na.rm = T))
 
@@ -39,7 +39,6 @@ seed_mass <-
   filter( row_number() == 1) %>% 
   select(USDA_symbol, seed_mass, seed_mass_data_source)
   
-
 pheno <- 
   pheno %>% 
   group_by(USDA_symbol) %>% 
@@ -48,7 +47,6 @@ pheno <-
   select( USDA_symbol, `phenology (DOY 50% fruit)`)
 
 heights <- heights[ complete.cases(heights), ] 
-
 
 all_traits <- 
   leaf_traits %>% 
