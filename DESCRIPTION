@@ -3,7 +3,7 @@ Title: Sedgwick Annual Plant Traits
 Version: 0.0.0.9000
 Authors@R: person("Andy", "Kleinhesselink", email = "arklein@ucla.edu", role = c("aut", "cre"))
 Description: Load functional trait data for 39 plant species from University of California Sedgwick Reserve in Santa Barbara CA, USA. Data were collected by Nathan Kraft and the Kraft Lab. Functional traits were original collected for around 20 species for a study correlating trait differences to competive niches in this annual plant community ("TAPIOCA" dataset).  Functional traits for an additional 39 species were collected in the spring of 2017 for a study of functional trait differences at 24 different sites across the reserve ("2017"-dataset).     
-Depends: R (>= 3.4.4)
+Depends: R (>= 3.4.3)
 Suggests: sedgwickspecies
 License: What license is it under?
 Encoding: UTF-8
