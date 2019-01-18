@@ -4,7 +4,7 @@ library(stringr)
 library(tidyverse)
 library(sedgwickspecies)
 
-outfile <- 'data-raw/leaf_area.csv'
+outfile <- 'data-raw/raw_trait_data/leaf_area.csv'
 
 file_names <- dir(path = 'data-raw/all-scans', pattern = '*.xls$', recursive = 'T', full.names = T) 
 alias <- read_csv('data-raw/alias.csv')

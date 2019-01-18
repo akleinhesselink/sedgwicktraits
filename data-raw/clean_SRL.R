@@ -2,7 +2,7 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/clean_SRL.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_SRL.csv'
 
 alias <- read.csv('data-raw/alias.csv')
 weights <- read.csv('data-raw/root_data/root_weights.csv')

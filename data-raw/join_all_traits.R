@@ -3,15 +3,15 @@ rm(list = ls())
 library(tidyverse)
 library(ggplot2)
 
-outfile <- 'data-raw/all_2017_traits.csv'
+outfile <- 'data-raw/cleaned_trait_data/all_2017_traits.csv'
 
-canopy <- read_csv('data-raw/clean_canopy.csv')
-isotopes <- read_csv('data-raw/clean_isotopes.csv')
-heights <- read_csv('data-raw/clean_heights.csv')
-pheno <- read_csv('data-raw/clean_phenology.csv')
-seed_mass <- read_csv('data-raw/clean_seed_mass.csv')
-srl <- read_csv('data-raw/clean_SRL.csv')
-leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
+canopy <- read_csv('data-raw/cleaned_trait_data/clean_canopy.csv')
+isotopes <- read_csv('data-raw/cleaned_trait_data/clean_isotopes.csv')
+heights <- read_csv('data-raw/cleaned_trait_data/clean_heights.csv')
+pheno <- read_csv('data-raw/cleaned_trait_data/clean_phenology.csv')
+seed_mass <- read_csv('data-raw/cleaned_trait_data/clean_seed_mass.csv')
+srl <- read_csv('data-raw/cleaned_trait_data/clean_SRL.csv')
+leaf_traits <- read_csv('data-raw/cleaned_trait_data/clean_leaf_traits.csv')
 
 leaf_traits <- 
   leaf_traits %>% 

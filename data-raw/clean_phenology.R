@@ -3,10 +3,10 @@ library(tidyverse)
 library(lubridate)
 library(sedgwickspecies)
 
-outfile <- 'data-raw/clean_phenology.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_phenology.csv'
 
 alias <- read_csv('data-raw/alias.csv')
-pheno <- read_csv('data-raw/phenology_data.csv')
+pheno <- read_csv('data-raw/raw_trait_data/phenology_data.csv')
 tapioca <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 
 pheno$date <- as.Date(pheno$date, format = '%m/%d/%y')

@@ -3,14 +3,14 @@ library(tidyverse)
 library(sedgwickspecies)
 library(stringr)
 
-outfile <- 'data-raw/clean_canopy.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_canopy.csv'
 
 alias <- read_csv('data-raw/alias.csv')
-canopy <- read_csv('data-raw/canopy_dimensions.csv')
-agb <- read_csv('data-raw/aboveground_biomass_weights.csv')
-leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
+canopy <- read_csv('data-raw/raw_trait_data/canopy_dimensions.csv')
+agb <- read_csv('data-raw/raw_trait_data/aboveground_biomass_weights.csv')
+leaf_traits <- read_csv('data-raw/cleaned_trait_data/clean_leaf_traits.csv')
 
-leaf_area <- read_csv('data-raw/leaf_area.csv')
+leaf_area <- read_csv('data-raw/raw_trait_data/leaf_area.csv')
 
 avg_SLA <- 
   leaf_traits %>% 
@@ -41,7 +41,7 @@ leaf_area <-
   filter( !petiole | (petiole & USDA_symbol %in% c('LUBI', 'LEBI4', 'VIPE3', 'GIOC')) )
 
 # read in areas without petiole 
-no_petiole <- read_csv('data-raw/canopy_LA_petiole_deleted.csv')
+no_petiole <- read_csv('data-raw/raw_trait_data/canopy_LA_petiole_deleted.csv')
 
 no_petiole_species <- unique( no_petiole $USDA_symbol )
 

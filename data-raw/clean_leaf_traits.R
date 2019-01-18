@@ -2,11 +2,11 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/clean_leaf_traits.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_leaf_traits.csv'
 
-dat <- read_csv('data-raw/2017-trait-measurements.csv')
-la_dat <- read_csv('data-raw/leaf_area.csv')
-focal_la_dat <- read_csv('data-raw/focal_leaf_areas.csv')
+dat <- read_csv('data-raw/raw_trait_data/2017-trait-measurements.csv')
+la_dat <- read_csv('data-raw/raw_trait_data/leaf_area.csv')
+focal_la_dat <- read_csv('data-raw/raw_trait_data/focal_leaf_areas.csv')
 alias <- read_csv('data-raw/alias.csv')
 
 

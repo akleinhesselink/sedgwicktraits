@@ -1,12 +1,13 @@
 rm(list = ls())
 library(tidyverse)
 library(stringr)
+library(BIEN)
 
-outfile <- 'data-raw/clean_seed_mass.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_seed_mass.csv'
 alias <- read_csv('data-raw/alias.csv')
 old_mass <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
-new_mass <- read_csv('data-raw/seed_weights.csv')
-new_focal_mass <- read_csv('data-raw/new_seed_weights_2018.csv')
+new_mass <- read_csv('data-raw/raw_trait_data/seed_weights.csv')
+new_focal_mass <- read_csv('data-raw/raw_trait_data/new_seed_weights_2018.csv')
 molinari <- read_csv('data-raw/old-data/molinari.csv')
 
 old_mass <- 

@@ -1,8 +1,8 @@
 rm(list = ls())
 library(tidyverse)
 
-outfile <- 'data-raw/clean_isotopes.csv'
-isotopes <- read_csv('data-raw/leaf_isotopes_2016.csv')
+outfile <- 'data-raw/cleaned_trait_data/clean_isotopes.csv'
+isotopes <- read_csv('data-raw/raw_trait_data/leaf_isotopes_2017.csv')
 alias <- read_csv('data-raw/alias.csv')
 old_traits <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 

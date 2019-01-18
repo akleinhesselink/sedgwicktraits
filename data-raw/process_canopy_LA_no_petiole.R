@@ -2,7 +2,8 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/canopy_LA_petiole_deleted.csv'
+outfile <- 'data-raw/raw_trait_data/canopy_LA_petiole_deleted.csv'
+
 files <- dir('data-raw/canopy_LA_no_petiole', pattern = 'leaf_area_no_petiole', full.names = T)
 alias <- read_csv('data-raw/alias.csv')
 

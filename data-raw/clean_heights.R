@@ -2,11 +2,11 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/clean_heights.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_heights.csv'
 q_height <- 0.95
 
 old_heights <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
-new_heights <- read_csv('data-raw/2017-plant-heights.csv')
+new_heights <- read_csv('data-raw/raw_trait_data/2017-plant-heights.csv')
 molinari <- read_csv('data-raw/old-data/molinari.csv')
 alias <- read_csv('data-raw/alias.csv')
 
