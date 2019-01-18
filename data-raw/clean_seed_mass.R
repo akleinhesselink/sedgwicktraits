@@ -6,6 +6,7 @@ outfile <- 'data-raw/clean_seed_mass.csv'
 alias <- read_csv('data-raw/alias.csv')
 old_mass <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 new_mass <- read_csv('data-raw/seed_weights.csv')
+new_focal_mass <- read_csv('data-raw/new_seed_weights_2018.csv')
 molinari <- read_csv('data-raw/old-data/molinari.csv')
 
 old_mass <- 
@@ -27,6 +28,10 @@ new_mass <-
   select(USDA_symbol, seed_mass) %>% 
   mutate( seed_mass_data_source = '2017')
 
+new_focal_mass <- 
+  new_focal_mass %>% 
+  rename('seed_mass_data_source' = year, 'seed_mass' = dry_weight_total) %>%  
+  select(USDA_symbol, seed_mass, seed_mass_data_source)
 
 molinari <- 
   molinari %>% 
@@ -53,10 +58,8 @@ CACO35_seed <-
   ungroup() %>% 
   select( USDA_symbol, seed_mass, seed_mass_data_source) 
 
-new_mass <- rbind( avba_seed, CACO35_seed, new_mass )
-
+new_mass <- rbind( avba_seed, CACO35_seed, new_mass, new_focal_mass)
 
 write_csv( rbind(old_mass, new_mass, molinari), outfile)
-
 
 

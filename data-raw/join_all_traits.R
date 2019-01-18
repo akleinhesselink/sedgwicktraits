@@ -18,7 +18,10 @@ leaf_traits <-
   filter( plot == 'non_plot' | USDA_symbol %in% c('BRMA3', 'HOMU', 'FEMI2', 'MICA', 'CHGL')) %>% 
   filter( !censor) %>% 
   group_by( USDA_symbol, petiole ) %>% 
-  summarise( SLA = mean(SLA, na.rm = T), LDMC = mean(LDMC, na.rm = T), LA = mean(LA, na.rm = T), dry_mass_g = mean(dry_mass_g, na.rm = T))
+  summarise( SLA = mean(SLA, na.rm = T), 
+             LDMC = mean(LDMC, na.rm = T), 
+             LA = mean(LA, na.rm = T), 
+             dry_mass_g = mean(dry_mass_g, na.rm = T))
 
 leaf_traits <- 
   leaf_traits %>% 
