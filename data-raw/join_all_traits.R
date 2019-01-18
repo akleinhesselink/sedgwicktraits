@@ -3,7 +3,7 @@ rm(list = ls())
 library(tidyverse)
 library(ggplot2)
 
-outfile <- 'data-raw/cleaned_trait_data/all_2017_traits.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_all_2017_traits.csv'
 
 canopy <- read_csv('data-raw/cleaned_trait_data/clean_canopy.csv')
 isotopes <- read_csv('data-raw/cleaned_trait_data/clean_isotopes.csv')

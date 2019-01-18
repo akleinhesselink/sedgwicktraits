@@ -1,7 +1,7 @@
 rm(list = ls())
 library(tidyverse)
 
-outfile <- 'data-raw/cleaned_trait_data/avg_tlp.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_tlp.csv'
 
 tlp_dat <- read_csv('data-raw/raw_trait_data/Sedgwick_TLP_2017.csv')
 alias <- read_csv('data-raw/alias.csv')

@@ -12,7 +12,7 @@ source( "data-raw/clean_canopy.R")
 source( "data-raw/clean_heights.R")
 source( "data-raw/clean_isotope.R")
 source( "data-raw/clean_phenology.R")
-source( "data-raw/avg_tlp.R")
+source( "data-raw/clean_tlp.R")
 
 source( "data-raw/clean_root_lengths.R")
 source( "data-raw/clean_SRL.R")
