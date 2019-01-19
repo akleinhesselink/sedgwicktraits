@@ -59,33 +59,38 @@ all_traits <-
   left_join(pheno) %>% 
   left_join(srl) %>% 
   left_join(seed_mass)
-  
+
+# Variable            Units 
+# 'leaf_size'         (cm2)
+# 'SLA'               (g/cm2) 
+# 'LDMC               (mg/g) 
+# 'LAI                (LA/canopy_area) 
+# 'LAR                (cm2/g) 
+# 'seed_mass          (g) 
+# 'max_height         (cm)
+# 'SRL                (m/g)
+# 'relative_spread'   (lateral/height)
+# 'phenology          (DOY 50% fruit)
+
 all_traits <- 
   all_traits %>% 
   mutate( notes = ifelse( petiole, 'LA with petiole', '' )) %>% 
-  rename( 'leaf_size(cm2)' = LA,
-          'SLA (g/cm2)' = SLA, 
-          'LDMC(mg/g)' = LDMC, 
-          'LAI (LA/canopy_area)' = LAI, 
-          'LAR(cm2/g)' = LAR, 
-          'seed_mass(g)' = seed_mass, 
-          'max_height(cm)' = max_height, 
-          'SRL(m/g)' = `SRL (m/g)`, 
-          'relative_spread(lateral/height)' = relative_spread) 
-
+  rename( 'leaf_size' = LA,
+          'SRL' = `SRL (m/g)`, 
+          'phenology' = `phenology (DOY 50% fruit)`) 
 
 all_traits %>% 
-  select( USDA_symbol, 
-          `leaf_size(cm2)`, 
-          `SLA (g/cm2)`, 
-          `LDMC(mg/g)`, 
-          `LAI (LA/canopy_area)`, 
-          `LAR(cm2/g)`, 
-          `seed_mass(g)`, 
-          `max_height(cm)`, 
-          `SRL(m/g)`, 
-          `relative_spread(lateral/height)`,
-          `phenology (DOY 50% fruit)`, 
+  select( USDA_symbol,
+          leaf_size, 
+          SLA, 
+          LDMC, 
+          LAI,
+          LAR, 
+          seed_mass,
+          max_height, 
+          SRL,
+          relative_spread,
+          phenology,
           foliar_N, 
           CN_ratio, 
           d13C, 

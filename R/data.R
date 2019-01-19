@@ -11,26 +11,26 @@
 #' @format A data frame with 59 rows and 22 variables:
 #' \describe{
 #'   \item{species}{Latin species binomial for each species. Using the calflora taxonomy for species names.}
-#'   \item{leaf_size(cm2)}{average leaf area in cm}
-#'   \item{SLA (g/cm2)}{average specific leaf area in g per cm2}
-#'   \item{LDMC(mg/g)}{average leaf dry matter content in mg dry weight per g fresh weight}
-#'   \item{LAI (LA/canopy_area)}{leaf area index, total leaf area divided by the projected canopy area}
-#'   \item{LAR(cm2/g)}{leaf are ratio, total leaf area divided by the total aboveground dry biomass}
-#'   \item{seed_mass(g)}{average seed mass in g, average comes from weighing ~100 seeds}
-#'   \item{max_height(cm2)}{95 percentile of heights of over 40 measured individual plants}
-#'   \item{SRL(m/g)}{specific root length in meters per gram}
-#'   \item{relative_spread}{average plant diameter when viewed from above divided by plant height}
-#'   \item{phenology (DOY 50\% fruit)}{day at which approximately 50\% of individual plants begin fruiting in the field}
-#'   \item{foliar_N}{leaf Nitrogen as a percent of total leaf matter}
-#'   \item{CN_ratio}{ratio of leaf carbon to leaf nitrogen}
-#'   \item{d13C}{relative enrichment of leaf carbon with carbon-13 isotopes}
-#'   \item{d15N}{relative enrichment of leaf nitrogen with nitrogen-15 isotopes}
+#'   \item{leaf_size}{area of a single leaf (cm\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}})}
+#'   \item{SLA}{specific leaf area (g per cm\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}})}
+#'   \item{LDMC}{leaf dry matter content per fresh weight (mg dry per g fresh)}
+#'   \item{LAI}{leaf area index, total leaf area divided by the projected canopy area (unitless)}
+#'   \item{LAR}{leaf are ratio, total leaf area divided by the total aboveground dry mass (cm\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}/g)}
+#'   \item{seed_mass}{seed mass (g), average comes from weighing ~100 seeds}
+#'   \item{max_height}{95 percentile of plant heights (cm), percentiles come from 40 or more individual plants measured in the field}
+#'   \item{SRL}{specific root length (m per g)}
+#'   \item{relative_spread}{plant diameter when viewed from above divided by plant height (unitless)}
+#'   \item{phenology}{day of year at which approximately 50\% of individual plants begin fruiting in the field (doy)}
+#'   \item{foliar_N}{leaf Nitrogen as a percent of total leaf mass (\%)}
+#'   \item{CN_ratio}{ratio of leaf carbon to leaf nitrogen (unitless)}
+#'   \item{d13C}{relative enrichment of leaf carbon with carbon-13 isotopes (\eqn{\delta} 13 C \out{&#8240})}
+#'   \item{d15N}{relative enrichment of leaf nitrogen with nitrogen-15 isotopes (\eqn{\delta} 15 N \out{&#8240}) }
 #'   \item{notes}{notes on data collection}
-#'   \item{seed_mass_data_source}{origin of the seed mass data}
+#'   \item{seed_mass_data_source}{origin of the seed mass data, some was collected in 2017, some collected for TAPIOCA and some is from reported values in Molinari et al.}
 #'   \item{max_height_data_source}{origin of the maximum plant height data}
 #'   \item{dataset}{whether the species data was collected in 2017 or for the earlier TAPIOCA project}
-#'   \item{seed_size (mm3)}{seed volume in mm3}
-#'   \item{rooting_depth (oscar)}{average maximum rooting depth}
-#'   \item{leaf_ph}{leaf ph}
+#'   \item{seed_size}{seed volume (mm\ifelse{html}{\out{<sup>3</sup>}}{\eqn{^3}})}
+#'   \item{rooting_depth}{average maximum rooting depth collected by Godoy for TAPIOCA}
+#'   \item{leaf_ph}{leaf pH}
 #' }
 "sedgwicktraits"
