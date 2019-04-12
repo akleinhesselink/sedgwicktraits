@@ -90,6 +90,7 @@ all_traits %>%
           max_height, 
           SRL,
           relative_spread,
+          projected_area,
           phenology,
           foliar_N, 
           CN_ratio, 

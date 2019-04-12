@@ -8,9 +8,9 @@
 #' Another set of functional traits were collected for a study of trait 
 #' differences across 24 different sites from across the reserve ("2017" data). 
 #'
-#' @format A data frame with 59 rows and 22 variables:
+#' @format A data frame with 65 rows and 24 variables:
 #' \describe{
-#'   \item{species}{Latin species binomial for each species. Using the calflora taxonomy for species names.}
+#'   \item{USDA_symbol}{Abbreviated USDA code for each species.}
 #'   \item{leaf_size}{area of a single leaf (cm\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}})}
 #'   \item{SLA}{specific leaf area (g per cm\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}})}
 #'   \item{LDMC}{leaf dry matter content per fresh weight (mg dry per g fresh)}
@@ -20,6 +20,7 @@
 #'   \item{max_height}{95 percentile of plant heights (cm), percentiles come from 40 or more individual plants measured in the field}
 #'   \item{SRL}{specific root length (m per g)}
 #'   \item{relative_spread}{plant diameter when viewed from above divided by plant height (unitless)}
+#'   \item{projected_area}{average projected canopy area of plant, as area of oval with each plant's longest axis and axis perpendicular to that providing the orthoganal dimensions.}
 #'   \item{phenology}{day of year at which approximately 50\% of individual plants begin fruiting in the field (doy)}
 #'   \item{foliar_N}{leaf Nitrogen as a percent of total leaf mass (\%)}
 #'   \item{CN_ratio}{ratio of leaf carbon to leaf nitrogen (unitless)}
@@ -29,8 +30,9 @@
 #'   \item{seed_mass_data_source}{origin of the seed mass data, some was collected in 2017, some collected for TAPIOCA and some is from reported values in Molinari et al.}
 #'   \item{max_height_data_source}{origin of the maximum plant height data}
 #'   \item{dataset}{whether the species data was collected in 2017 or for the earlier TAPIOCA project}
+#'   \item{turgor_loss_point}{Leaf osmotic potential was measured in the lab and then used to calculate turgor loss point}
 #'   \item{seed_size}{seed volume (mm\ifelse{html}{\out{<sup>3</sup>}}{\eqn{^3}})}
 #'   \item{rooting_depth}{average maximum rooting depth collected by Godoy for TAPIOCA}
-#'   \item{leaf_ph}{leaf pH}
+#'   \item{leaf_pH}{leaf pH}
 #' }
 "sedgwicktraits"

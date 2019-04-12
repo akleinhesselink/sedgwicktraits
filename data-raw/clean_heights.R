@@ -19,11 +19,21 @@ old_heights <-
   distinct() %>% 
   mutate( max_height_data_source = 'TAPIOCA')
 
+
+new_heights %>% 
+  group_by( USDA_symbol ) %>% 
+  summarise( n = n() ) %>% 
+  arrange( n, USDA_symbol ) %>% 
+  mutate( trait = 'max_height') %>% 
+  write_csv('temp/check_heights.csv')
+
+
 new_heights <- 
   new_heights %>% 
   group_by( USDA_symbol) %>% 
   summarise( max_height = quantile(height, q_height)) %>% 
   mutate( max_height_data_source = '2017')
+
 
 molinari <- 
   molinari %>%

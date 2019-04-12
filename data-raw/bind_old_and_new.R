@@ -12,6 +12,30 @@ gk_2016 <- read_csv('data-raw/old-data/2016_sp_avg.csv')
 alias <- read_csv('data-raw/alias.csv')
 avg_tlp <- read_csv('data-raw/cleaned_trait_data/clean_tlp.csv')
 
+tapioca_raw <- read_csv('data-raw/old-data/tapioca_raw_traits.csv')
+
+tapioca <- 
+  tapioca %>% 
+  mutate(`LAI (LA/canopy_area)` = ifelse(species %in% c('LACA', 'PLER'), `LAI (LA/canopy_area)`*100, `LAI (LA/canopy_area)`)) 
+
+tapioca_raw <- 
+  tapioca_raw %>% 
+  mutate(`canopy_Projected_area(cm2)` = ifelse(species %in% c('LACA', 'PLER'), `canopy_Projected_area(cm2)`/100, `canopy_Projected_area(cm2)`))
+
+tapioca %>% 
+  ggplot(aes( x = species, y = `LAI (LA/canopy_area)`)) + 
+  geom_point(data = tapioca_raw, aes( x = species, y = `total_leaf_area(cm2)`/`canopy_Projected_area(cm2)` ), color = 'red')  + 
+  geom_point() + coord_flip() 
+
+canopy_area <- 
+  tapioca_raw %>% 
+  group_by( species ) %>% 
+  summarise( projected_area_cm2 = min(`canopy_Projected_area(cm2)`, na.rm = T))
+
+tapioca <- 
+  tapioca %>% 
+  left_join(canopy_area)
+
 new <- 
   new %>% 
   mutate( dataset = '2017') %>% 
@@ -35,7 +59,8 @@ tapioca <-
           'seed_size' = `seed_size (mm3)`, 
           'max_height' = `max_height(cm)`, 
           'SRL' = `SRL(m/g)`, 
-          'relative_spread' = `relative_spread(lateral/height)`, 
+          'relative_spread' = `relative_spread(lateral/height)`,
+          'projected_area' = projected_area_cm2,
           'rooting_depth' = `rooting_depth (oscar)`) %>% 
   left_join(alias) %>% 
   left_join(avg_tlp) %>% 
@@ -71,10 +96,9 @@ sedgwicktraits <-
 sedgwicktraits <- 
   sedgwicktraits %>% 
   left_join(sedgwick_plants, by = 'USDA_symbol') %>% 
-  select( calflora_binomial, leaf_size:leaf_pH ) %>% 
-  rename( 'species' = calflora_binomial) %>%
+  select( USDA_symbol, leaf_size:leaf_pH ) %>% 
   distinct() %>% 
-  group_by(species) %>% 
+  group_by(USDA_symbol) %>% 
   mutate( turgor_loss_point = mean(turgor_loss_point, na.rm = T)) ### Correct for duplicate tlp
 
 usethis::use_data(sedgwicktraits, overwrite = T)

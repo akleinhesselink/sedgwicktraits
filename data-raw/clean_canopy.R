@@ -112,10 +112,10 @@ canopy_stats <-
   mutate( total_LA = ifelse( is.na(canopy_LA), canopy_LA_by_weight, canopy_LA)) %>% 
   mutate( LAI = total_LA/projected_area, 
           LAR = total_LA/total_agb_g ) %>% 
-  select( USDA_symbol, plant_number, petiole, height, LAI, LAR, relative_spread)
+  select( USDA_symbol, plant_number, petiole, height, LAI, LAR, relative_spread, projected_area)
 
 canopy_stats %>% 
-  gather( metric, value, height:relative_spread) %>% 
+  gather( metric, value, height:projected_area) %>% 
   ggplot( aes( x = USDA_symbol, y = value )) + 
   geom_boxplot() + 
   geom_point(alpha = 0.3) + 
@@ -124,9 +124,14 @@ canopy_stats %>%
 
 mean_canopy_traits <- 
   canopy_stats %>% 
-  gather( metric, value, height:relative_spread) %>% 
+  gather( metric, value, height:projected_area) %>% 
   group_by( USDA_symbol, petiole, metric) %>% 
   summarise( value = mean(value, na.rm = T)) %>% 
   spread( metric, value ) 
+
+mean_canopy_traits %>% 
+  arrange(!is.na(relative_spread), desc(petiole)) %>% 
+  filter( petiole | is.na(LAI) | is.na(LAR) | is.na(projected_area) | is.na(relative_spread) ) %>% 
+  write_csv( 'temp/check_canopy.csv')
 
 write_csv(mean_canopy_traits, outfile)
