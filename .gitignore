@@ -36,3 +36,5 @@ packrat/src/*
 .Rproj.user
 
 *Icon*
+
+temp/*
