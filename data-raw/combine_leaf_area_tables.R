@@ -5,7 +5,7 @@ library(tidyverse)
 library(sedgwickspecies)
 library(lubridate)
 
-outfile <- 'data-raw/raw_trait_data/leaf_area.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_leaf_area.csv'
 
 file_names <- dir(path = 'data-raw/all-scans', 
                   pattern = '(*.xls$)|(*.csv$)', 
@@ -57,11 +57,10 @@ leaf_area <-
   mutate( all = str_detect( leaf, 'ALL'), petiole = str_detect(notes, 'with_petiole')) %>% 
   mutate( plant = str_extract(plant, '\\d+'), leaf = str_extract(leaf, '\\d+')) %>% 
   rename( 'count' = Count, 'total_area' = `Total Area`) %>% 
-  mutate( plot = 'non_plot', year = year(scan_date) ) %>% 
+  mutate( plot = 'non_plot' ) %>% 
   left_join( alias ) %>% 
-  select( plot, year, scan_date, USDA_symbol, all, plant, leaf, count, total_area, petiole, scan_date, file, notes)  %>% 
+  select( plot, scan_date, USDA_symbol, all, plant, leaf, count, total_area, petiole, scan_date, file, notes)  %>% 
   distinct() 
-
 
 leaf_area %>% 
   write_csv(outfile)
