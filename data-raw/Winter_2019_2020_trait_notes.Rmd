@@ -1,0 +1,32 @@
+---
+title: "December_Notes"
+author: "Andrew Kleinhesselink"
+date: "1/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## notes on stuff to do 
+
+### Need more heights for: 
+
+ - CHPA8
+ - CHGL
+
+### Need seed mass for:
+
+ - MIEL
+
+### Need canopy dimensions for: 
+
+ - CLPE
+ - GIOC
+ - LEBI
+
+### Check: 
+
+  - LOGA2 dry leaf weights seem too light, should be pooled for better accuracy
+

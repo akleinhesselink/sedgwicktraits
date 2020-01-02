@@ -7,7 +7,6 @@ library(sedgwickspecies)
 alias <- read_csv('data-raw/alias.csv')
 outfile <- 'data-raw/raw_trait_data/leaf_area.csv'
 
-
 file_names <- dir(path = 'data-raw/all-scans/', pattern = '*.csv$', recursive = 'T', full.names = T) 
 
 files <- data.frame(file_name = file_names)

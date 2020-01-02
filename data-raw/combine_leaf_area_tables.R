@@ -21,7 +21,7 @@ files <-
   mutate( notes = ifelse( str_detect('with_petiole', string = file_name), 'with_petiole', '')  ) %>% 
   mutate( notes = ifelse( str_detect('no_petiole', string = file_name), 'no_petiole', notes)) %>% 
   mutate( raw_date = str_extract(string = file_names, '[0-9]{8}')) %>% 
-  mutate( scan_date = dmy( raw_date))
+  mutate( date = dmy( raw_date))
 
 dat <- list()
 
@@ -32,7 +32,7 @@ for ( i in 1:nrow(files)){
     temp <- read_tsv(as.character( files$file_name[i] ))
   }
   temp$notes <- files$notes[i]
-  temp$scan_date <- files$scan_date[i]
+  temp$date <- files$date[i]
   temp$file <- files$file_name[i]
   dat[[i]] <- temp 
 }
@@ -58,8 +58,9 @@ leaf_area <-
   mutate( plant = str_extract(plant, '\\d+'), leaf = str_extract(leaf, '\\d+')) %>% 
   rename( 'count' = Count, 'total_area' = `Total Area`) %>% 
   mutate( plot = 'non_plot' ) %>% 
+  mutate( plot = ifelse( date > ymd( '2019-12-01') , 'UCLA', plot )) %>% 
   left_join( alias ) %>% 
-  select( plot, scan_date, USDA_symbol, all, plant, leaf, count, total_area, petiole, scan_date, file, notes)  %>% 
+  select( plot, date, USDA_symbol, all, plant, leaf, count, total_area, petiole, file, notes)  %>% 
   distinct() 
 
 leaf_area %>% 

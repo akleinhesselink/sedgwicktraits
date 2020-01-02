@@ -2,7 +2,7 @@ rm(list = ls())
 library(tidyverse)
 library(stringr)
 
-outfile <- 'data-raw/focal_species_leaf_traits.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_GSK_species_leaf_traits.csv'
 
 leaf_traits <- read_csv('data-raw/clean_leaf_traits.csv')
 
