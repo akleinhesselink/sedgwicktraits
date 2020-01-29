@@ -8,7 +8,7 @@ library(lubridate)
 outfile <- 'data-raw/cleaned_trait_data/clean_leaf_area.csv'
 
 file_names <- dir(path = 'data-raw/all-scans', 
-                  pattern = '(*.xls$)|(*.csv$)', 
+                  pattern = '(*leaf_area.csv$)|(*leaf_area.*petiole.csv$)', 
                   recursive = 'T', 
                   full.names = T) 
 
@@ -37,7 +37,8 @@ for ( i in 1:nrow(files)){
   dat[[i]] <- temp 
 }
 
-leaf_area <- do.call(rbind, dat)
+
+leaf_area <- do.call(bind_rows, dat)
 
 leaf_area$Slice <- str_replace_all(leaf_area$Slice, c('_[Pp]' = '-p', '_[Ll]' = '-l'))
 
@@ -46,8 +47,41 @@ leaf_area <-
   leaf_area %>% 
   mutate( Slice = ifelse( Slice == 'lomu-p3-l1', 'lomu-p1-all', Slice))  
 
-# ---------------------------------------------------------------------
+leaf_area <- leaf_area %>% 
+  mutate( Slice = str_remove(Slice, '(-big$)|(-small$)')) %>% 
+  mutate( Slice = str_remove(Slice, 'comp-')) # Fix comp-chpa 
 
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_replace( Slice, 'vulpia_myuros', 'vumy' ))
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_replace( Slice, 'all-[1-2]$', 'all')) # two part scans 
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_remove(Slice, "\\'")) %>% 
+  mutate( Slice = str_replace(Slice, 'capy-p5.1', 'capy-p9')) # duplicate capy plant numbers 
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_replace(Slice, 'AVBA.[pP]1.[allALL]{3}.*$', 'AVBA-p1-ALL')) 
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_remove(Slice, '-b$'))
+
+leaf_area <- 
+  leaf_area %>%
+  mutate( Slice = str_remove(Slice, '_[a-b]$')) %>% 
+  mutate( Slice = ifelse( str_detect(Slice, 'LUBI') & date == ymd('2019-04-24'), paste0( Slice, '_all'), Slice) ) 
+
+leaf_area <- 
+  leaf_area %>% 
+  mutate( Slice = str_remove( Slice, '-((bracts)|(leaves))$')) # for CLPE bracts and leaves 
+
+# ---------------------------------------------------------------------
 leaf_area <- 
   leaf_area %>% 
   mutate( Slice = str_to_upper(Slice)) %>% 
@@ -62,6 +96,7 @@ leaf_area <-
   left_join( alias ) %>% 
   select( plot, date, USDA_symbol, all, plant, leaf, count, total_area, petiole, file, notes)  %>% 
   distinct() 
+
 
 leaf_area %>% 
   write_csv(outfile)
