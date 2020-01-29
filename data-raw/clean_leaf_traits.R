@@ -5,11 +5,18 @@ library(lubridate)
 
 outfile <- 'data-raw/cleaned_trait_data/clean_leaf_traits.csv'
 areas <- read_csv('data-raw/cleaned_trait_data/clean_leaf_area.csv')
+
 weights <- read_csv('data-raw/raw_trait_data/AK_leaf_weights.csv') %>% 
   mutate( date = mdy( date ) ) %>% 
-  rename( 'USDA_symbol' = species )
+  rename( 'USDA_symbol' = species ) %>% 
+  mutate( plant = ifelse( USDA_symbol == 'THLA3', plant - 16, plant  )) %>% 
+  mutate( plant = ifelse( USDA_symbol == 'THCU', plant - 8, plant )) 
+
 
 # ------------------ # 
+areas %>% filter( USDA_symbol == 'CHGL')
+
+weights %>% filter( USDA_symbol == 'CHGL') %>% View()
 
 traits <- 
   areas %>% 
@@ -82,36 +89,29 @@ traits <-
 # Check plots ------------------- # 
 
 traits %>% 
-  filter( ! censor ) %>% 
-  filter( USDA_symbol == 'LOST4') %>% 
-  ggplot( aes( x = plant, y = SLA, color = petiole )) + 
+  filter( ! censor) %>% 
+  mutate( collection = paste( USDA_symbol, plot, sep = '_' )) %>% 
+  ggplot( aes( x = collection, y = LDMC, color = petiole)) + 
   geom_point() + 
-  facet_wrap( ~ petiole + plot ) 
-
-traits %>% 
-  filter( ! censor , ! petiole ) %>% 
-  filter( USDA_symbol == 'LOST4') %>% 
-  ggplot( aes( x = plant, y = LA)) + 
-  geom_point() 
-
-traits %>% 
-  filter( USDA_symbol == 'LOST4', ! petiole) %>% View
+  coord_flip() 
 
 traits %>% 
   filter( ! censor) %>% 
-  group_by( USDA_symbol, petiole, plant, plot  ) %>% 
-  summarise( LDMC = mean(LDMC, na.rm = T) ) %>% 
-  ggplot( aes( x = USDA_symbol, y = LDMC, color = petiole, shape = plot )) + 
+  mutate( collection = paste( USDA_symbol, plot, sep = '_' )) %>% 
+  ggplot( aes( x = collection, y = SLA, color = petiole)) + 
   geom_point() + 
-  coord_flip() + 
-  facet_wrap( ~ petiole + plot )
+  coord_flip() 
+
 
 traits %>% 
-  filter( !censor) %>% 
-  group_by( USDA_symbol, petiole, plant, plot  ) %>% 
-  summarise( SLA = mean(SLA, na.rm = T) ) %>% 
-  ggplot( aes( x = USDA_symbol, y = SLA, color = petiole, shape = plot )) + 
-  geom_point() + 
-  coord_flip() + 
-  facet_wrap( ~ petiole + plot )
+  filter( str_detect(USDA_symbol, 'CHGL')) %>% View
 
+traits %>% 
+  filter( USDA_symbol == 'GAAP2') %>% 
+  select( USDA_symbol, plant, leaf,  wet_mass_g, dry_mass_g, SLA, LDMC) %>% View
+
+traits %>% 
+  filter( USDA_symbol == 'STME2') %>% View
+
+traits %>% 
+  filter( USDA_symbol == 'LEPA51') %>% View
