@@ -82,21 +82,23 @@ leaf_area <-
   mutate( Slice = str_remove( Slice, '-((bracts)|(leaves))$')) # for CLPE bracts and leaves 
 
 # ---------------------------------------------------------------------
+
 leaf_area <- 
   leaf_area %>% 
   mutate( Slice = str_to_upper(Slice)) %>% 
   mutate( Slice = str_remove(Slice, '\\.JP[E]?G$')) %>% 
   mutate( Slice = str_replace(Slice, 'LVS$', 'ALL'))  %>% 
+  mutate( plot = str_extract(Slice, '(^7[0-9]+)')) %>% 
+  mutate( plot = ifelse( is.na(plot), 'non_plot', plot)) %>% 
+  mutate( Slice = str_remove(Slice, '(^7[0-9]+)-')) %>% 
   separate( Slice, c('alias', 'plant', 'leaf'))  %>% 
   mutate( all = str_detect( leaf, 'ALL'), petiole = str_detect(notes, 'with_petiole')) %>% 
   mutate( plant = str_extract(plant, '\\d+'), leaf = str_extract(leaf, '\\d+')) %>% 
   rename( 'count' = Count, 'total_area' = `Total Area`) %>% 
-  mutate( plot = 'non_plot' ) %>% 
   mutate( plot = ifelse( date > ymd( '2019-12-01') , 'UCLA', plot )) %>% 
   left_join( alias ) %>% 
   select( plot, date, USDA_symbol, all, plant, leaf, count, total_area, petiole, file, notes)  %>% 
   distinct() 
-
 
 leaf_area %>% 
   write_csv(outfile)

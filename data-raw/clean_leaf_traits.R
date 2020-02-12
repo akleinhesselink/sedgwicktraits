@@ -26,8 +26,6 @@ traits <-
           SLA = total_area/dry_mass_g, 
           LA = total_area/n_leaves ) 
 
-
-traits %>% View()
 # Check LDMC 
 
 traits %>% 
