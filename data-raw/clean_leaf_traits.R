@@ -12,11 +12,7 @@ weights <- read_csv('data-raw/raw_trait_data/AK_leaf_weights.csv') %>%
   mutate( plant = ifelse( USDA_symbol == 'THLA3', plant - 16, plant  )) %>% 
   mutate( plant = ifelse( USDA_symbol == 'THCU', plant - 8, plant )) 
 
-
 # ------------------ # 
-areas %>% filter( USDA_symbol == 'CHGL')
-
-weights %>% filter( USDA_symbol == 'CHGL') %>% View()
 
 traits <- 
   areas %>% 
@@ -31,6 +27,7 @@ traits <-
           LA = total_area/n_leaves ) 
 
 
+traits %>% View()
 # Check LDMC 
 
 traits %>% 
@@ -52,21 +49,6 @@ traits %>%
   arrange( desc(abs( SLA_scaled))) %>% 
   filter( abs( SLA_scaled ) > 2.7 ) %>% 
   View()
-
-# Censor outliers for LDMC 
-traits %>% 
-  filter( USDA_symbol == 'FEMY2', plant == 3, leaf == 3 ) %>% View # parts might have fallen out of envelope 
-traits %>% 
-  filter( USDA_symbol == 'CHPO3' , plant == 4, leaf == 3 ) %>% View # something wrong with wet mass 
-traits %>% 
-  filter( USDA_symbol == 'STPU2', plant == 8, leaf == 2) %>% View # parts might have fallen out of envelope 
-
-# Censor SLA 
-traits %>% 
-  filter( USDA_symbol == 'LEBI4', plant == 4, leaf == 2) %>% View # image mismatch:  This Leaf image is same as plant 4 leaf 1 
-
-traits %>% 
-  filter( USDA_symbol == 'CRCO34') %>% View  # Plant 2 leaf 1 -- dry sample is missing leaves, exclude 
 
 # Censor leaves 
 
@@ -102,7 +84,6 @@ traits %>%
   geom_point() + 
   coord_flip() 
 
-
 traits %>% 
   filter( str_detect(USDA_symbol, 'CHGL')) %>% View
 
@@ -115,3 +96,46 @@ traits %>%
 
 traits %>% 
   filter( USDA_symbol == 'LEPA51') %>% View
+
+sort( unique(traits$USDA_symbol) )
+
+# --- Check grasses 
+library(sedgwickspecies)
+
+new_grass_traits <- 
+  traits %>% 
+  left_join( sedgwick_plants, by = 'USDA_symbol') %>% 
+  filter( family == 'POACEAE', !censor, !is.na(LA), !is.na(leaf_mass) ) %>% 
+  group_by(calflora_binomial, plot, plant, year(date) ) %>% 
+  summarise( LA = mean( LA ), SLA = mean(SLA), LDMC =  mean( LDMC ), leaf_mass = mean( leaf_mass )) %>% 
+  select( calflora_binomial, plot, plant, LA:leaf_mass )
+
+
+my_sandel_traits <- read_csv('~/Dropbox/peer_reviews/Pavlika_Sandel_Grass_Traits/grass_traits_for_Brody.csv')
+
+my_sandel_traits %>% 
+  select( calflora_binomial, plant_number, SLA, LA) %>% 
+  filter( calflora_binomial == 'Festuca myuros')
+
+compare <- 
+  my_sandel_traits %>% 
+  rename( 'plant' = plant_number) %>% 
+  select( calflora_binomial, plant, SLA, LDMC, LA ) %>% 
+  left_join( new_grass_traits, by = c('calflora_binomial', 'plant')) 
+
+compare %>% 
+  select( calflora_binomial, plant, SLA.x, SLA.y) %>% 
+  mutate( SLA.y - SLA.x )  %>% 
+  View()
+
+compare %>% 
+  group_by( calflora_binomial ) %>% 
+  summarise( mean( SLA.x) , mean(SLA.y))
+
+
+compare %>% 
+  select( calflora_binomial, plant, LA.x, LA.y) %>% 
+  mutate( LA.y - LA.x )  %>% 
+  View()
+
+
