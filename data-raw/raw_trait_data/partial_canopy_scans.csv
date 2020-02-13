@@ -1,0 +1,6 @@
+date,USDA_symbol,plant,type,special,proportion,notes
+5/17/17,CHPA8,1,all,big,0.25,using quarter of plant all leaves should be calculated as (4*all-big)+(16*all-small)
+5/17/17,CHPA8,2,all,big,0.25,using quarter of plant all leaves should be calculated as (4*all-big)+(16*all-small)
+5/17/17,CHPA8,1,all,small,0.0625,using quarter of plant all leaves should be calculated as (4*all-big)+(16*all-small)
+5/17/17,CHPA8,2,all,small,0.0625,using quarter of plant all leaves should be calculated as (4*all-big)+(16*all-small)
+5/17/17,CHPA8,3,all,,0.33333,one third of plant
