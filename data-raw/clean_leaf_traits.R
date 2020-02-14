@@ -65,9 +65,9 @@ traits <-
 
 # Re-assign "petiole" VIPE, GIOC and LEBI4 and CLPE don't have true petioles but were marked as such 
 
-traits <- 
-  traits %>% 
-  mutate( petiole = ifelse( USDA_symbol %in% c('VIPE3', 'GIOC', 'LEBI4', 'CLPE') & petiole, F, petiole))
+# traits <- 
+#   traits %>% 
+#   mutate( petiole = ifelse( USDA_symbol %in% c('VIPE3', 'GIOC', 'LEBI4', 'CLPE') & petiole, F, petiole))
 
 # Check plots ------------------- # 
 
@@ -87,6 +87,6 @@ traits %>%
 
 traits %>% 
   filter( !censor) %>% 
-  select( USDA_symbol, plant, leaf, n_leaves, plot, date, petiole, leaf_mass:LA, -c(petiole_mass_g, dry_mass_petiole_g)) %>% 
+  select( USDA_symbol, plant, leaf, n_leaves, plot, date, petiole, leaf_mass:LA, dry_mass_g, total_area, -c(petiole_mass_g, dry_mass_petiole_g)) %>% 
   write_csv( outfile )
 
