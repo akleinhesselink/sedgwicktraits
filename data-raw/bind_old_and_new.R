@@ -6,7 +6,8 @@ library(sedgwickspecies)
 
 outfile <- 'data/sedgwick_traits.Rdata'
 
-new <- read_csv( 'data-raw/cleaned_trait_data/clean_all_2017_traits.csv')
+new <- read_csv( 'data-raw/cleaned_trait_data/clean_all_traits.csv')
+
 tapioca <- read_csv('data-raw/old-data/tapioca_trait_averages.csv')
 gk_2016 <- read_csv('data-raw/old-data/2016_sp_avg.csv')
 alias <- read_csv('data-raw/alias.csv')

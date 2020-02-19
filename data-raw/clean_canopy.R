@@ -12,6 +12,8 @@ mass <- read_csv('data-raw/raw_trait_data/aboveground_biomass_weights.csv')
 area <- read_csv('data-raw/cleaned_trait_data/clean_leaf_area.csv')
 traits <- read_csv('data-raw/cleaned_trait_data/clean_leaf_traits.csv') 
 
+heights <- read_csv('data-raw/cleaned_trait_data/clean_heights.csv')
+
 focal_leaf_mass <- 
   traits %>% 
   mutate( tissue_type = 'focal_leaves') %>% 
@@ -26,6 +28,8 @@ focal_leaf_area <-
 
 canopy <- 
   canopy %>%  
+  left_join(heights, by = c('USDA_symbol')) %>% 
+  mutate( height = ifelse( is.na(height), mean_height, height)) %>% 
   mutate( date = lubridate::mdy( date ) ) %>% 
   rename( 'plant' = plant_number) %>% 
   mutate( projected_area = pi*(1/2*width*1/2*length) ) %>% 
@@ -34,6 +38,7 @@ canopy <-
   mutate( plant = ifelse( USDA_symbol == 'CAPY2' & plant == 5.1, 9, plant )) %>% 
   mutate( plant = ifelse( USDA_symbol == 'THLA3', plant - 16, plant  )) %>% 
   mutate( plant = ifelse( USDA_symbol == 'THCU', plant - 8, plant )) 
+
 
 mass <- 
   mass %>%
@@ -84,66 +89,12 @@ canopy_dat <-
   mutate( total_area_est = ifelse( tissue_separated , total_area_est, NA)) 
 
 
-canopy_dat %>% 
-  mutate( error = abs( total_area_est - total_area)) %>% 
-  arrange( desc(error)) %>% 
-  filter( complete, tissue_separated) %>% View
-
-canopy_dat %>% 
-  ggplot( aes( x = total_area_est, y = total_area )) + 
-  geom_point() + 
-  facet_wrap( complete ~ tissue_separated)
-
-area %>% 
-  filter( USDA_symbol == 'ERMO7')
-canopy %>% 
-  filter( USDA_symbol == 'ERMO7')
-mass %>% 
-  filter( USDA_symbol == 'ERMO7')
-
-
 #------------------------------------------------------ #
 
-avg_SLA <- 
-  traits %>% 
-  group_by( USDA_symbol, petiole, plot, date ) %>% 
-  summarise( m_SLA = mean(SLA), n = n_distinct(plant)) 
+canopy_dat <- 
+  canopy_dat %>% 
+  mutate(total_area = ifelse(!complete, NA, total_area) ) %>% 
+  mutate(total_area_est = ifelse( !tissue_separated, NA, total_area_est)) %>% 
+  filter( USDA_symbol != 'DICA14') 
 
-
-canopy %>% 
-  left_join(agb)
-
-
-canopy_stats <- 
-  agb %>% 
-  left_join(canopy, by = c('USDA_symbol', 'plant_number', 'year')) %>% 
-  left_join(leaf_area, by = c('USDA_symbol', 'year', 'plant_number', 'petiole')) %>% 
-  left_join(avg_SLA, by = c('USDA_symbol', 'petiole', 'year')) %>% 
-  select(USDA_symbol, year, plant_number, petiole, height:length, canopy_LA, complete, leaves, stem, unclassified, total, m_SLA) %>% 
-  mutate( canopy_LA_by_weight = m_SLA*leaves) %>%
-  mutate( canopy_LA  = ifelse(complete, canopy_LA, NA)) %>% 
-  mutate( canopy_LA_by_weight = ifelse( canopy_LA_by_weight == 0, NA, canopy_LA_by_weight)) %>% 
-  mutate( projected_area = pi*(1/2*width*1/2*length) ) %>% 
-  mutate( relative_spread = ((width + length)/2)/height ) %>% 
-  rename( 'total_agb_g' = total) %>% 
-  mutate( total_LA = ifelse( is.na(canopy_LA), canopy_LA_by_weight, canopy_LA)) %>% 
-  mutate( LAI = total_LA/projected_area, 
-          LAR = total_LA/total_agb_g ) %>% 
-  select( USDA_symbol, plant_number, petiole, height, LAI, LAR, relative_spread, projected_area)
-
-agb
-
-mean_canopy_traits <- 
-  canopy_stats %>% 
-  gather( metric, value, height:projected_area) %>% 
-  group_by( USDA_symbol, petiole, metric) %>% 
-  summarise( value = mean(value, na.rm = T)) %>% 
-  spread( metric, value ) 
-
-mean_canopy_traits %>% 
-  arrange(!is.na(relative_spread), desc(petiole)) %>% 
-  filter( petiole | is.na(LAI) | is.na(LAR) | is.na(projected_area) | is.na(relative_spread) ) %>% 
-  write_csv( 'temp/check_canopy.csv')
-
-
-write_csv(mean_canopy_traits, outfile)
+write_csv(canopy_dat, outfile)

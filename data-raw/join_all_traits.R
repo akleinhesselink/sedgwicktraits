@@ -3,7 +3,7 @@ rm(list = ls())
 library(tidyverse)
 library(ggplot2)
 
-outfile <- 'data-raw/cleaned_trait_data/clean_all_2017_traits.csv'
+outfile <- 'data-raw/cleaned_trait_data/clean_all_traits.csv'
 
 canopy <- read_csv('data-raw/cleaned_trait_data/clean_canopy.csv')
 isotopes <- read_csv('data-raw/cleaned_trait_data/clean_isotopes.csv')
@@ -15,13 +15,11 @@ leaf_traits <- read_csv('data-raw/cleaned_trait_data/clean_leaf_traits.csv')
 
 leaf_traits <- 
   leaf_traits %>% 
-  filter( plot == 'non_plot' | USDA_symbol %in% c('BRMA3', 'HOMU', 'FEMI2', 'MICA', 'CHGL')) %>% 
-  filter( !censor) %>% 
-  group_by( USDA_symbol, petiole ) %>% 
+  group_by( USDA_symbol, plot, petiole ) %>% 
   summarise( SLA = mean(SLA, na.rm = T), 
              LDMC = mean(LDMC, na.rm = T), 
              LA = mean(LA, na.rm = T), 
-             dry_mass_g = mean(dry_mass_g, na.rm = T))
+             leaf_mass = mean(leaf_mass, na.rm = T))
 
 leaf_traits <- 
   leaf_traits %>% 
@@ -51,6 +49,20 @@ pheno <-
 
 heights <- heights[ complete.cases(heights), ] 
 
+
+canopy <- 
+  canopy %>% 
+  mutate( canopy_leaf_area = ifelse( is.na(total_area), total_area_est, total_area )) %>% 
+  mutate( LAI = canopy_leaf_area/projected_area, LAR = canopy_leaf_area/total_agb_mass) %>% 
+  group_by( USDA_symbol, plot) %>% 
+  summarise( projected_area = mean(projected_area, na.rm = T), 
+             relative_spread = mean(relative_spread, na.rm = T), 
+             LAI = mean(LAI, na.rm = T), 
+             LAR = mean(LAR, na.rm = T)) %>% 
+  arrange( USDA_symbol, plot  ) %>% 
+  filter( row_number() == 1 ) # take first one if choice between non-plot and USDA
+
+
 all_traits <- 
   leaf_traits %>% 
   left_join(isotopes) %>% 
@@ -58,7 +70,11 @@ all_traits <-
   left_join(heights) %>% 
   left_join(pheno) %>% 
   left_join(srl) %>% 
-  left_join(seed_mass)
+  left_join(seed_mass) %>% 
+  mutate( notes = ifelse( petiole, 'LA with petiole', '' )) %>% 
+  rename( 'leaf_size' = LA,
+          'SRL' = `SRL (m/g)`, 
+          'phenology' = `phenology (DOY 50% fruit)`) 
 
 # Variable            Units 
 # 'leaf_size'         (cm2)
@@ -72,13 +88,8 @@ all_traits <-
 # 'relative_spread'   (lateral/height)
 # 'phenology          (DOY 50% fruit)
 
-all_traits <- 
-  all_traits %>% 
-  mutate( notes = ifelse( petiole, 'LA with petiole', '' )) %>% 
-  rename( 'leaf_size' = LA,
-          'SRL' = `SRL (m/g)`, 
-          'phenology' = `phenology (DOY 50% fruit)`) 
 
+  
 all_traits %>% 
   select( USDA_symbol,
           leaf_size, 

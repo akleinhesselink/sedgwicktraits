@@ -31,7 +31,7 @@ new_heights %>%
 new_heights <-
   new_heights %>%
   group_by(USDA_symbol) %>%
-  summarise(max_height = quantile(height, q_height)) %>%
+  summarise(max_height = quantile(height, q_height), mean_height = mean(height)) %>%
   mutate(max_height_data_source = 'AK')
 
 
@@ -41,7 +41,7 @@ molinari <-
   mutate(max_height_data_source = 'MOLINARI') %>%
   filter(complete.cases(.))
 
-all_heights <- rbind(old_heights, new_heights, molinari)
+all_heights <- bind_rows(new_heights, molinari, old_heights)
 
 all_heights <-
   all_heights %>%
